@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hogwarts 1991</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h1>Student List Hogwarts 1991</h1>
+    <section id="students">
+        <template id="myTemplate">
+            <article>
+                <p class="studentName">student name here</p>
+                <p class="houseName">house here</p>
+                <!-- Trigger/Open The Modal -->
+                <button id="modalBtn">See more</button>
+                <!-- The Modal -->
+                <div id="myModal" class="modal">
+                    <!-- Modal content -->
+                    <div class="modalContent">
+                        <span class="close">&times;</span>
+                        <p>Some text in the Modal..</p>
+                    </div>
+            </article>
+        </template>
+    </section>
+
+    <div class="modalBackground hide">
+        <div class="modalContent">
+            <h3 class="modalTitle">modal title</h3>
+            <img class="modalImg">modal img</img>
+            <p class="modalDetails">modal paragraph</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
