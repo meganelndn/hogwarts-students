@@ -12,29 +12,32 @@
 <body>
 
     <h1>Student List Hogwarts 1991</h1>
+
+    <label id="theme-changer">
+        Choose your house theme
+        <select name="theme" id="theme">
+            <option value="-">-</option>
+            <option value="gryffindor">Gryffindor theme</option>
+            <option value="hufflepuff">Hufflepuff theme</option>
+            <option value="ravenclaw">Ravenclaw theme</option>
+            <option value="slytherin">Slytherin theme</option>
+        </select>
+    </label>
+
     <section id="students">
-        <template id="myTemplate">
+        <template id="template">
             <article>
-                <p class="studentName">student name here</p>
-                <p class="houseName">house here</p>
-                <!-- Trigger/Open The Modal -->
-                <button id="modalBtn">See more</button>
-                <!-- The Modal -->
-                <div id="myModal" class="modal">
-                    <!-- Modal content -->
-                    <div class="modalContent">
-                        <span class="close">&times;</span>
-                        <p>Some text in the Modal..</p>
-                    </div>
+                <h1 class="studentName"></h1>
+                <button class="modalBtn">See more</button>
             </article>
         </template>
     </section>
 
-    <div class="modalBackground hide">
-        <div class="modalContent">
-            <h3 class="modalTitle">modal title</h3>
-            <img class="modalImg">modal img</img>
-            <p class="modalDetails">modal paragraph</p>
+    <div class="modal-background hide">
+        <div class="modal-content" id="modal-content">
+            <h1 class="modal-name">Student name</h1>
+            <p class="modal-house">House name</p>
+            <img class="crest" src="images/Gryffindor.png" alt="crest" />
         </div>
     </div>
 

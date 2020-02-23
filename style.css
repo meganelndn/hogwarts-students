@@ -3,24 +3,41 @@
 @supports (display: grid) {
     #students {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        grid-gap: 6rem;
+        grid-template-columns: repeat(auto-fill, minmax(300, 1fr));
+        grid-gap: 3rem;
         text-align: center;
     }
 }
 
+:root {
+    --primary-color: white;
+    --secondary-color: black;
+    --h1Color: 'Playfair Display', serif;
+    --paragraph-font: 'Playfair Display', serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: var(--primary-color);
+}
+
 h1 {
-    text-align: center;
     margin-bottom: 60px;
     margin-top: 50px;
     font-family: "Poppins";
+    color: var(--secondary-color);
+    text-align: center;
 }
 
 /* TEMPLATE */
 .studentName {
     font-family: "Poppins";
     font-size: 16px;
-    color: black;
+    color: var(--secondary-color);
 }
 
 .houseName {
@@ -30,68 +47,97 @@ h1 {
 }
 
 article {
-    border: 1px solid burlywood;
-    padding: 40px 0;
+    background-color: var(--primary-color);
+    padding: 20px 0;
 }
 
 /* BUTTON */
-button {
-    border: 1px solid darkolivegreen;
-    padding: 10px 40px;
+.modalBtn {
+    border: 1px solid var(--secondary-color);
+    padding: 10px 35px;
     cursor: pointer;
     font-family: "Poppins";
     font-size: 10px;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
 }
 
-button:hover {
-    background-color: darkolivegreen;
-    color: white;
+.modalBtn:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
 }
 
-/* MODAL */
-.modal {
+
+/*MODAL*/
+.hide {
     display: none;
-    /* Hidden by default */
+}
+
+.modal-background {
     position: fixed;
-    /* Stay in place */
-    z-index: 1;
-    /* Sit on top */
-    padding-top: 100px;
-    /* Location of the box */
+    z-index: 10;
     left: 0;
     top: 0;
     width: 100%;
-    /* Full width */
     height: 100%;
-    /* Full height */
-    overflow: auto;
-    /* Enable scroll if needed */
-    background-color: rgb(0, 0, 0);
-    /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.4);
-    /* Black w/ opacity */
+    background-color: rgba(0, 0, 0, 0.3);
 }
 
-/* Modal Content */
-.modalContent {
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
+.modal-content {
+    background-color: var(--secondary-color);
+    margin: 1em;
+    padding: 2em;
+    color: var(--primary-color);
 }
 
-/* The Close Button */
-.close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+.modal-name {
+    color: var(--primary-color);
 }
 
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
+.modal-house {
+    text-align: center;
+}
+
+.crest {
+    display: flex;
+    justify-content: center;
+}
+
+#theme-changer {
+    font-family: "Courier";
+    color: var(--secondary-color);
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+}
+
+#theme {
+    border: black 1px solid;
+    font-family: "Courier";
+}
+
+/* data attributes */
+[data-house="hufflepuff"] {
+    --primary-color: #ecb939;
+    --h1Color: #726255;
+    --secondary-color: #000000;
+}
+
+[data-house="gryffindor"] {
+    --h1Color: #FFC500;
+    --primary-color: #7F0909;
+    --secondary-color: #FFC500;
+}
+
+[data-house="ravenclaw"] {
+    --h1Color: #946b2d;
+    --primary-color: #222f5b;
+    --secondary-color: #946B2D;
+}
+
+[data-house="slytherin"] {
+    --h1Color: #AAAAAA;
+    --primary-color: #2a623d;
+    --secondary-color: #fefefe;
 }

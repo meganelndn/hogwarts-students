@@ -1,60 +1,84 @@
-window.addEventListener("DOMContentLoaded", fetchJson);
+"use strict";
+window.addEventListener("DOMContentLoaded", init);
 
-function fetchJson() {
-    //console.log("fetchJson")
-    fetch("students1991.json")
-        .then(res => res.json())
-        .then(handleData);
+const HTML = {};
+
+let studentArr = [];
+
+const studentObj = {
+  firstName: "",
+  lastName: "",
+  middleName: "",
+  nickName: "",
+  image: "",
+  house: ""
 }
 
-function handleData(showAll) {
-    console.log(showAll);
+function init() {
+  console.log("ready");
+  HTML.modal = document.querySelector(".modal-background");
+  HTML.close = document.querySelector(".close");
+  HTML.wrapper = document.querySelector("#students");
 
-    // 1. loop array
-    showAll.forEach(showStudents);
+  fetchJson();
+}
+
+function fetchJson() {
+  fetch("https://petlatkea.dk/2020/hogwarts/students.json")
+    .then(res => res.json())
+    .then(handleData);
+}
+
+function selectTheme() {
+  document.querySelector("body").setAttribute("data-house", this.value);
+}
+
+function handleData(studentArr) {
+  console.log(studentArr);
+  // loop array
+  studentArr.forEach(showStudents);
+  // listen for event change
+  document.querySelector("select#theme").addEventListener("change", selectTheme);
+}
+
+
+/********************* CLEAN JSON DATA ******************/
+
+function cleanData() {
+
+  // TODO: insert clean data here
+
+  showStudents(student);
 }
 
 function showStudents(student) {
-    console.log(student);
+  // clone template
+  const template = document.querySelector("#template").content;
+  const copy = template.cloneNode(true);
 
-    // 2. clone template
-    const myTemplate = document.querySelector("#myTemplate").content;
-    const myCopy = myTemplate.cloneNode(true);
+  // populate template with content being fetched
+  copy.querySelector(".studentName").textContent = student.fullname;
 
-    // 3. textContent & innerHTML
-    const oneName = myCopy.querySelector(".studentName");
-    oneName.textContent = student.fullname;
+  // textContent in modal
+  copy.querySelector(".modalBtn").addEventListener("click", function () {
+    const modalOpen = document.querySelector(".modal-background");
+    modalOpen.classList.remove("hide");
+    const modalHouse = document.querySelector(".modal-house");
+    modalHouse.textContent = student.fullname;
+    const modalName = document.querySelector(".modal-name");
+    modalName.textContent = student.house;
+  });
 
-    const house = myCopy.querySelector(".houseName");
-    house.textContent = student.house;
+  // append copy to parent element
+  document.querySelector("#students").appendChild(copy);
 
-    // 4. append
-    document.querySelector("#students").appendChild(myCopy);
+  closeModal();
+}
 
-
-    // Get the modal
-    const modal = document.getElementById("myModal");
-
-    // Get the button that opens the modal
-    const btn = document.getElementById("modalBtn");
-
-    // Get the <span> element that closes the modal
-    const span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks the button, open the modal 
-    btn.onclick = function () {
-        modal.style.display = "block";
-    }
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function () {
-        modal.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
+function closeModal() {
+  // user can now click anywhere to close the modal
+  const modalClose = document.querySelector(".modal-background");
+  modalClose.addEventListener("click", () => {
+    modalClose.classList.add("hide");
+  });
 }
