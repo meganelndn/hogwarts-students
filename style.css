@@ -46,6 +46,28 @@ h2 {
     margin-bottom: 60px;
 }
 
+#house-buttons {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.filter {
+    padding: 10px;
+    cursor: pointer;
+    font-family: "Poppins";
+    font-size: 10px;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    width: 100px;
+    border-radius: 10px;
+}
+
+.filter:hover {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+
 /************ TEMPLATE *************/
 .studentName {
     font-family: "Poppins";
@@ -96,6 +118,11 @@ article {
     background-color: rgba(0, 0, 0, 0.3);
 }
 
+.studentFirstName:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 .modal-content {
     margin: 1em;
     padding: 2em;
@@ -144,30 +171,41 @@ article {
 }
 
 /************ DATA ATTRIBUTES *************/
-[data-house="hufflepuff"] {
+[data-house="hufflepuff"],
+[data-filter="hufflepuff"] {
     --primary-color: #ecb939;
     --h1Color: #726255;
     --secondary-color: #000000;
     --house-crest: url(house-crests/hufflepuff.png);
 }
 
-[data-house="gryffindor"] {
+[data-house="gryffindor"],
+[data-filter="gryffindor"] {
     --h1Color: #FFC500;
     --primary-color: #7F0909;
     --secondary-color: #FFC500;
     --house-crest: url(house-crests/gryffindor.png);
 }
 
-[data-house="ravenclaw"] {
+[data-house="ravenclaw"],
+[data-filter="ravenclaw"] {
     --h1Color: #946b2d;
     --primary-color: #222f5b;
     --secondary-color: #946B2D;
     --house-crest: url(house-crests/ravenclaw.png);
 }
 
-[data-house="slytherin"] {
+[data-house="slytherin"],
+[data-filter="slytherin"] {
     --h1Color: #AAAAAA;
     --primary-color: #2a623d;
     --secondary-color: #fefefe;
     --house-crest: url(house-crests/slytherin.png);
+}
+
+/* SORTING */
+[data-sort="firstname"]:hover,
+[data-sort="lastname"]:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }

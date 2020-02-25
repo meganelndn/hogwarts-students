@@ -3,7 +3,11 @@ window.addEventListener("DOMContentLoaded", init);
 
 /*------------------STUDENT ARRAY--------------------*/
 let studentArr = [];
+let currentStudents = [];
+
+/*-----------------FULLNAME OBJECT------------------*/
 let nameArr = {};
+
 /*-----------------OBJECT PROTOTYPE------------------*/
 const studentObject = {
   firstName: "",
@@ -22,10 +26,92 @@ function init() {
     document.querySelector("body").setAttribute("data-house", this.value);
   });
 
+  // TODO: add event-listeners to filter and sort buttons
+  document.querySelector("[data-filter='gryffindor']").addEventListener("click", filterGryffindor);
+  document.querySelector("[data-filter='hufflepuff']").addEventListener("click", filterHufflepuff);
+  document.querySelector("[data-filter='ravenclaw']").addEventListener("click", filterRavenclaw);
+  document.querySelector("[data-filter='slytherin']").addEventListener("click", filterSlytherin);
+
+  document.querySelector("[data-sort='firstname']").addEventListener("click", sortName);
+  document.querySelector("[data-sort='lastname']").addEventListener("click", sortName);
+
   fetchJson();
 }
-/*-------------------SORT-------------------*/
+
 /*------------------FILTER------------------*/
+function filterGryffindor() {
+  const onlyGryffindor = studentArr.filter(isGryffindor);
+  showStudents(onlyGryffindor);
+}
+
+function isGryffindor(newStudent) {
+  return newStudent.house === "gryffindor";
+}
+
+function filterHufflepuff() {
+  const onlyHufflepuff = studentArr.filter(isHufflepuff);
+}
+
+function isHufflepuff(newStudent) {
+  return newStudent.house === "hufflepuff";
+}
+
+function filterRavenclaw() {
+  const onlyRavenclaw = studentArr.filter(isRavenclaw);
+}
+
+function isRavenclaw(newStudent) {
+  return newStudent.house === "ravenclaw";
+}
+
+function filterSlytherin() {
+  const onlySlytherin = studentArr.filter(isSlytherin);
+}
+
+function isSlytherin(newStudent) {
+  return newStudent.house === "slytherin";
+}
+
+/*-------------------SORT-------------------*/
+function sortName() {
+  if (event.target.dataset.sortDirection === "asc") {
+    event.target.dataset.sortDirection = "desc";
+
+    nameAsc();
+  } else {
+    nameDesc();
+
+    event.target.dataset.sortDirection = "asc";
+  }
+}
+
+// ascending order
+function nameDesc() {
+  function compareName(a, b) {
+    if (a.name < b.name) {
+      return -1;
+    } else if (a.name > b.name) {
+      return 1;
+    }
+  }
+  studentArr.sort(compareName);
+  showStudents(studentArr);
+}
+
+// descending order
+function nameAsc() {
+  function compareName(a, b) {
+    if (a.name < b.name) {
+      return 1;
+    } else if (a.name > b.name) {
+      return -1;
+    }
+  }
+  studentArr.sort(compareName);
+  showStudents(studentArr);
+}
+
+/*-----------------------LOAD JSON DATA--------------------*/
 
 function fetchJson() {
   fetch("https://petlatkea.dk/2020/hogwarts/students.json")
@@ -35,12 +121,11 @@ function fetchJson() {
 
 /*-------------------DISPLAY STUDENTLIST--------------------*/
 function getStudents(studentArr) {
-  studentArr.forEach(separateNames);
-  //console.log(studentArr);
+  studentArr.forEach(separateData);
 }
 
 /*---------------------CLEAN JSON DATA-----------------------*/
-function separateNames(student) {
+function separateData(student) {
   // Create new object from prototype
   let newStudent = Object.create(studentObject);
   //console.log(student) // logs each student object
@@ -66,9 +151,6 @@ function separateNames(student) {
   // last name
   newStudent.lastName = nameArr[nameArr.length - 1];
 
-  // image filename
-  newStudent.image = newStudent.lastName.toLowerCase() + "_" + newStudent.firstName[0].substring(0, 1).toLowerCase() + ".png";
-
   // house
   newStudent.house = student.house.toLowerCase();
 
@@ -78,7 +160,7 @@ function separateNames(student) {
   showStudents(newStudent);
 }
 
-/*-------------------DISPLAY STUDENTLIST------------------*/
+/*-------------------DISPLAY NEW STUDENTLIST------------------*/
 function showStudents(newStudent) {
   // clone HTML template
   const template = document.querySelector("#template").content;
@@ -90,6 +172,7 @@ function showStudents(newStudent) {
     // match color and crest with student in modal
     const modal = document.querySelector(".modal-content");
     modal.setAttribute("data-house", newStudent.house);
+
     // TODO: add blood status
 
     // TODO: add if prefect, expelled, or member of inquisitorial squad
@@ -98,7 +181,6 @@ function showStudents(newStudent) {
     modal.querySelector(".photo").src = `images/${newStudent.lastName.toLowerCase() + "_" + newStudent.firstName[0].substring(0, 1).toLowerCase() + ".png"}`;
     // add house crest
     modal.querySelector(".crest").src = `house-crests/${newStudent.house.toLowerCase()}.png`;
-
 
     const modalOpen = document.querySelector(".modal-background");
     modalOpen.classList.remove("hide");

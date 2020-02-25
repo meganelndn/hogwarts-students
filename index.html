@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Hogwarts 1991</title>
+    <title>Hacked Hogwarts</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -16,6 +16,7 @@
     <img src="house-crests/hogwarts.png" alt="hogwartCrest" class="hogwarts">
     <h2>Scroll down for magic</h2>
 
+    <!------------------------------THEME CHANGER------------------------->
     <label id="theme-changer">
         Choose your house theme
         <select name="theme" id="theme">
@@ -28,6 +29,24 @@
     </label>
 
     <section id="students">
+
+        <!-------------------------FILTERING BUTTONS----------------------->
+        <div id="house-buttons">
+            Filter:
+            <button class="filter" data-action="filter" data-filter="gryffindor">Gryffindor</button>
+            <button class="filter" data-action="filter" data-filter="hufflepuff">Hufflepuff</button>
+            <button class="filter" data-action="filter" data-filter="ravenclaw">Ravenclaw</button>
+            <button class="filter" data-action="filter" data-filter="slytherin">Slytherin</button>
+        </div>
+
+        <!----------------------------SORTING---------------------------->
+        <div id="sorting">
+            Sort by:
+            <p data-action="sort" data-sort-direction="asc" data-sort="firstname">First Name</p>
+            <p data-action="sort" data-sort-direction="asc" data-sort="lastname">Last Name</p>
+        </div>
+
+        <!-------------------------STUDENT TEMPLATE----------------------->
         <template id="template">
             <article>
                 <h1 class="studentFirstName"></h1>
@@ -37,6 +56,7 @@
         </template>
     </section>
 
+    <!-----------------------------------MODAL------------------------------>
     <div class="modal-background hide">
         <div class="modal-content" id="modal-content" data-house="">
             <h2 class="modal-name">Student name</h2>
