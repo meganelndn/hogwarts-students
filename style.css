@@ -1,12 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins&display=swap');
 
-@supports (display: grid) {
-    #students {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300, 1fr));
-        grid-gap: 3rem;
-        text-align: center;
-    }
+* {
+    box-sizing: border-box;
 }
 
 :root {
@@ -16,8 +11,13 @@
     --paragraph-font: 'Playfair Display', serif;
 }
 
-* {
-    box-sizing: border-box;
+@supports (display: grid) {
+    #students {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300, 1fr));
+        grid-gap: 3rem;
+        text-align: center;
+    }
 }
 
 body {
@@ -26,14 +26,27 @@ body {
 }
 
 h1 {
-    margin-bottom: 60px;
+    margin-bottom: 30px;
     margin-top: 50px;
     font-family: "Poppins";
     color: var(--secondary-color);
     text-align: center;
 }
 
-/* TEMPLATE */
+h2 {
+    text-align: center;
+    font-family: "Poppins";
+}
+
+.hogwarts {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+    margin-bottom: 60px;
+}
+
+/************ TEMPLATE *************/
 .studentName {
     font-family: "Poppins";
     font-size: 16px;
@@ -51,7 +64,7 @@ article {
     padding: 20px 0;
 }
 
-/* BUTTON */
+/************ MODAL BUTTON *************/
 .modalBtn {
     border: 1px solid var(--secondary-color);
     padding: 10px 35px;
@@ -68,7 +81,7 @@ article {
 }
 
 
-/*MODAL*/
+/************ MODAL *************/
 .hide {
     display: none;
 }
@@ -84,14 +97,14 @@ article {
 }
 
 .modal-content {
-    background-color: var(--secondary-color);
     margin: 1em;
     padding: 2em;
-    color: var(--primary-color);
+    color: var(--secondary-color);
+    background-color: var(--primary-color);
 }
 
 .modal-name {
-    color: var(--primary-color);
+    color: var(--secondary-color);
 }
 
 .modal-house {
@@ -99,10 +112,23 @@ article {
 }
 
 .crest {
-    display: flex;
-    justify-content: center;
+    background-image: var(--house-crest);
+    position: relative;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 25%;
 }
 
+.photo {
+    position: relative;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 10%;
+}
+
+/************ THEMES *************/
 #theme-changer {
     font-family: "Courier";
     color: var(--secondary-color);
@@ -117,27 +143,31 @@ article {
     font-family: "Courier";
 }
 
-/* data attributes */
+/************ DATA ATTRIBUTES *************/
 [data-house="hufflepuff"] {
     --primary-color: #ecb939;
     --h1Color: #726255;
     --secondary-color: #000000;
+    --house-crest: url(house-crests/hufflepuff.png);
 }
 
 [data-house="gryffindor"] {
     --h1Color: #FFC500;
     --primary-color: #7F0909;
     --secondary-color: #FFC500;
+    --house-crest: url(house-crests/gryffindor.png);
 }
 
 [data-house="ravenclaw"] {
     --h1Color: #946b2d;
     --primary-color: #222f5b;
     --secondary-color: #946B2D;
+    --house-crest: url(house-crests/ravenclaw.png);
 }
 
 [data-house="slytherin"] {
     --h1Color: #AAAAAA;
     --primary-color: #2a623d;
     --secondary-color: #fefefe;
+    --house-crest: url(house-crests/slytherin.png);
 }

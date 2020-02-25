@@ -9,36 +9,42 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body data-house="">
 
     <h1>Student List Hogwarts 1991</h1>
+
+    <img src="house-crests/hogwarts.png" alt="hogwartCrest" class="hogwarts">
+    <h2>Scroll down for magic</h2>
 
     <label id="theme-changer">
         Choose your house theme
         <select name="theme" id="theme">
             <option value="-">-</option>
-            <option value="gryffindor">Gryffindor theme</option>
-            <option value="hufflepuff">Hufflepuff theme</option>
-            <option value="ravenclaw">Ravenclaw theme</option>
-            <option value="slytherin">Slytherin theme</option>
+            <option value="gryffindor" data-house="gryffindor">Gryffindor</option>
+            <option value="hufflepuff" data-house="hufflepuff">Hufflepuff</option>
+            <option value="ravenclaw" data-house="ravenclaw">Ravenclaw</option>
+            <option value="slytherin" data-house="slytherin">Slytherin</option>
         </select>
     </label>
 
     <section id="students">
         <template id="template">
             <article>
-                <h1 class="studentName"></h1>
+                <h1 class="studentFirstName"></h1>
+                <h1 class="studentLastName"></h1>
                 <button class="modalBtn">See more</button>
             </article>
         </template>
     </section>
 
     <div class="modal-background hide">
-        <div class="modal-content" id="modal-content">
-            <h1 class="modal-name">Student name</h1>
-            <p class="modal-house">House name</p>
-            <img class="crest" src="images/Gryffindor.png" alt="crest" />
+        <div class="modal-content" id="modal-content" data-house="">
+            <h2 class="modal-name">Student name</h2>
+            <img class="photo" alt="studentImg">
+            <h1 class="modal-house">House name</h1>
+            <img class="crest" alt="house-crest">
         </div>
+    </div>
     </div>
 
     <script src="script.js"></script>
