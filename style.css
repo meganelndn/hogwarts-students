@@ -241,3 +241,18 @@ article {
     --secondary-color: #fefefe;
     --house-crest: url(house-crests/slytherin.png);
 }
+
+.search,
+#mySearch {
+    float: right;
+}
+
+.search {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+#mySearch {
+    margin-right: 10px;
+    margin-top: 10px;
+}
