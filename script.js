@@ -54,7 +54,7 @@ function sendFiltered(filter) {
     return filter === newStudent.house;
   }
   return filterStudents;
-}
+
 
 /*-------------------SORT-------------------*/
 function sortName() {
@@ -72,27 +72,27 @@ function sortName() {
 // ascending order
 function nameDesc() {
   function compareName(a, b) {
-    if (a.name < b.name) {
+    if (a.firstName < b.firstName) {
       return -1;
-    } else if (a.name > b.name) {
+    } else if (a.firstName > b.firstName) {
       return 1;
     }
   }
   studentArr.sort(compareName);
-  showStudents(studentArr);
+  showList(studentArr);
 }
 
 // descending order
 function nameAsc() {
   function compareName(a, b) {
-    if (a.name < b.name) {
+    if (a.firstName < b.firstName) {
       return 1;
-    } else if (a.name > b.name) {
+    } else if (a.firstName > b.firstName) {
       return -1;
     }
   }
   studentArr.sort(compareName);
-  showStudents(studentArr);
+  showList(studentArr);
 }
 
 /*-----------------------LOAD JSON DATA--------------------*/
