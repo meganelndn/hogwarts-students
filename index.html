@@ -51,24 +51,25 @@
     <!----------------------------SORTING---------------------------->
     <div id="sorting">
         Sort by:
-        <p data-action="sort" data-sort-direction="asc" data-sort="firstname">First Name</p>
-        <p data-action="sort" data-sort-direction="asc" data-sort="lastname">Last Name</p>
+        <p class="sort" data-action="sort" data-sort-direction="asc" data-sort="firstname">First Name</p>
+        <p class="sort" data-action="sort" data-sort-direction="asc" data-sort="lastname">Last Name</p>
     </div>
 
     <!-------------------------STUDENT TEMPLATE----------------------->
-    <section id="students">
-        <h1>Class of 1991 students:</h1>
-        <template id="template" class="current students">
-            <article>
-                <h2 class="studentFirstName"></h2>
-                <h2 class="studentLastName"></h2>
-                <button class="modalBtn">See more</button>
-                <button class="prefectBtn">Set prefect</button>
-                <button class="expelBtn">Expel</button>
-            </article>
-        </template>
+    <h1>Current students:</h1>
+    <template id="template" class="current students">
+        <article>
+            <h2 class="studentFirstName"></h2>
+            <h2 class="studentLastName"></h2>
+            <button class="modalBtn">See more</button>
+            <button class="prefectBtn">Set prefect</button>
+            <button class="expelBtn">Expel</button>
+        </article>
+    </template>
 
-        <!-- <ul class="expelled-students">
+    <section id="students"></section>
+
+    <!-- <ul class="expelled-students">
             <li></li>
         </ul>
 
