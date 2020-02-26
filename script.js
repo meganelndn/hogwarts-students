@@ -30,9 +30,8 @@ function init() {
   document.querySelectorAll(".filter").forEach(button => {
     button.addEventListener("click", setFilter);
   });
-  document.querySelectorAll(".sort").forEach(p => {
-    p.addEventListener("click", sortName);
-  });
+  document.querySelector("[data-sort='firstname']").addEventListener("click", sortFirstName);
+  document.querySelector("[data-sort='lastname']").addEventListener("click", sortLastName);
 
   fetchJson();
 }
@@ -56,68 +55,80 @@ function sendFiltered(filter) {
 }
 
 /*-------------------SORT-------------------*/
-function sortName() {
+function sortFirstName() {
   if (event.target.dataset.sortDirection === "asc") {
     event.target.dataset.sortDirection = "desc";
 
-    nameAsc();
+    firstNameDesc();
   } else {
-    nameDesc();
+    firstNameAsc();
 
     event.target.dataset.sortDirection = "asc";
   }
 }
 
 // ascending order
-function nameDesc() {
-  function compareName(a, b) {
+function firstNameDesc() {
+  function compareFirstName(a, b) {
     if (a.firstName < b.firstName) {
       return -1;
     } else if (a.firstName > b.firstName) {
       return 1;
     }
   }
-  studentArr.sort(compareName);
+  studentArr.sort(compareFirstName);
   fetchList(studentArr);
   console.log(studentArr)
 }
 
 // descending order
-function nameAsc() {
-  function compareName(a, b) {
+function firstNameAsc() {
+  function compareFirstName(a, b) {
     if (a.firstName < b.firstName) {
       return 1;
     } else if (a.firstName > b.firstName) {
       return -1;
     }
   }
-  studentArr.sort(compareName);
+  studentArr.sort(compareFirstName);
   fetchList(studentArr);
 }
 
-function nameDesc() {
-  function compareName(a, b) {
-    if (a.firstName < b.firstName) {
+function sortLastName() {
+  if (event.target.dataset.sortDirection === "asc") {
+    event.target.dataset.sortDirection = "desc";
+
+    lastNameDesc();
+  } else {
+    lastNameAsc();
+
+    event.target.dataset.sortDirection = "asc";
+  }
+}
+
+function lastNameDesc() {
+  function compareLastName(a, b) {
+    if (a.lastName < b.lastName) {
       return -1;
-    } else if (a.firstName > b.firstName) {
+    } else if (a.lastName > b.lastName) {
       return 1;
     }
   }
-  studentArr.sort(compareName);
+  studentArr.sort(compareLastName);
   fetchList(studentArr);
   console.log(studentArr)
 }
 
 // descending order
-function nameAsc() {
-  function compareName(a, b) {
-    if (a.firstName < b.firstName) {
+function lastNameAsc() {
+  function compareLastName(a, b) {
+    if (a.lastName < b.lastName) {
       return 1;
-    } else if (a.firstName > b.firstName) {
+    } else if (a.lastName > b.lastName) {
       return -1;
     }
   }
-  studentArr.sort(compareName);
+  studentArr.sort(compareLastName);
   fetchList(studentArr);
 }
 
