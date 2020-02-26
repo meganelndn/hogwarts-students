@@ -210,32 +210,32 @@ article {
 }
 
 /*-------------------DATA ATTRIBUTES----------------*/
-[data-house="hufflepuff"],
-[data-filter="hufflepuff"] {
+[data-house="Hufflepuff"],
+[data-filter="Hufflepuff"] {
     --primary-color: #ecb939;
     --h1Color: #726255;
     --secondary-color: #000000;
     --house-crest: url(house-crests/hufflepuff.png);
 }
 
-[data-house="gryffindor"],
-[data-filter="gryffindor"] {
+[data-house="Gryffindor"],
+[data-filter="Gryffindor"] {
     --h1Color: #FFC500;
     --primary-color: #7F0909;
     --secondary-color: #FFC500;
     --house-crest: url(house-crests/gryffindor.png);
 }
 
-[data-house="ravenclaw"],
-[data-filter="ravenclaw"] {
+[data-house="Ravenclaw"],
+[data-filter="Ravenclaw"] {
     --h1Color: #946b2d;
     --primary-color: #222f5b;
     --secondary-color: #946B2D;
     --house-crest: url(house-crests/ravenclaw.png);
 }
 
-[data-house="slytherin"],
-[data-filter="slytherin"] {
+[data-house="Slytherin"],
+[data-filter="Slytherin"] {
     --h1Color: #AAAAAA;
     --primary-color: #2a623d;
     --secondary-color: #fefefe;

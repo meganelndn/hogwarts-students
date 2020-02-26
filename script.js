@@ -174,8 +174,8 @@ function separateData(student) {
   newStudent.lastName = nameArr[nameArr.length - 1];
 
   // house
-  //newStudent.house = (student.house.substring(0, 1)).toUpperCase() + (student.house.substring(1, )).toLowerCase();
-  newStudent.house = student.house.toLowerCase();
+  newStudent.house = (student.house.substring(0, 1)).toUpperCase() + (student.house.substring(1, )).toLowerCase();
+  //newStudent.house = student.house.toLowerCase();
 
   studentArr.push(newStudent);
   console.log(studentArr)
