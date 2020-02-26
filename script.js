@@ -41,7 +41,7 @@ function init() {
 /*------------------FILTER------------------*/
 function filterGryffindor() {
   const onlyGryffindor = studentArr.filter(isGryffindor);
-  showStudents(onlyGryffindor);
+  showList(onlyGryffindor);
 }
 
 function isGryffindor(newStudent) {
@@ -50,6 +50,7 @@ function isGryffindor(newStudent) {
 
 function filterHufflepuff() {
   const onlyHufflepuff = studentArr.filter(isHufflepuff);
+  showList(onlyHufflepuff);
 }
 
 function isHufflepuff(newStudent) {
@@ -58,6 +59,7 @@ function isHufflepuff(newStudent) {
 
 function filterRavenclaw() {
   const onlyRavenclaw = studentArr.filter(isRavenclaw);
+  showList(onlyRavenclaw);
 }
 
 function isRavenclaw(newStudent) {
@@ -66,6 +68,7 @@ function isRavenclaw(newStudent) {
 
 function filterSlytherin() {
   const onlySlytherin = studentArr.filter(isSlytherin);
+  showList(onlySlytherin);
 }
 
 function isSlytherin(newStudent) {
@@ -88,27 +91,27 @@ function sortName() {
 // ascending order
 function nameDesc() {
   function compareName(a, b) {
-    if (a.name < b.name) {
+    if (a.firstName < b.firstName) {
       return -1;
-    } else if (a.name > b.name) {
+    } else if (a.firstName > b.firstName) {
       return 1;
     }
   }
   studentArr.sort(compareName);
-  showStudents(studentArr);
+  showList(studentArr);
 }
 
 // descending order
 function nameAsc() {
   function compareName(a, b) {
-    if (a.name < b.name) {
+    if (a.firstName < b.firstName) {
       return 1;
-    } else if (a.name > b.name) {
+    } else if (a.firstName > b.firstName) {
       return -1;
     }
   }
   studentArr.sort(compareName);
-  showStudents(studentArr);
+  showList(studentArr);
 }
 
 /*-----------------------LOAD JSON DATA--------------------*/
