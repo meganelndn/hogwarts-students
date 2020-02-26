@@ -54,7 +54,7 @@ function sendFiltered(filter) {
     return filter === newStudent.house;
   }
   return filterStudents;
-
+}
 
 /*-------------------SORT-------------------*/
 function sortName() {
@@ -72,27 +72,27 @@ function sortName() {
 // ascending order
 function nameDesc() {
   function compareName(a, b) {
-    if (a.firstName < b.firstName) {
+    if (a.name < b.name) {
       return -1;
-    } else if (a.firstName > b.firstName) {
+    } else if (a.name > b.name) {
       return 1;
     }
   }
   studentArr.sort(compareName);
-  showList(studentArr);
+  showStudents(studentArr);
 }
 
 // descending order
 function nameAsc() {
   function compareName(a, b) {
-    if (a.firstName < b.firstName) {
+    if (a.name < b.name) {
       return 1;
-    } else if (a.firstName > b.firstName) {
+    } else if (a.name > b.name) {
       return -1;
     }
   }
   studentArr.sort(compareName);
-  showList(studentArr);
+  showStudents(studentArr);
 }
 
 /*-----------------------LOAD JSON DATA--------------------*/
@@ -136,7 +136,7 @@ function separateData(student) {
   newStudent.lastName = nameArr[nameArr.length - 1];
 
   // house
-  newStudent.house = student.house.toLowerCase() /* + student.house(substring(0, 1)).toUpperCase(); */
+  newStudent.house = (student.house.substring(0, 1)).toUpperCase() + (student.house.substring(1, )).toLowerCase();
 
   studentArr.push(newStudent);
   console.log(studentArr)
