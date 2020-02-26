@@ -185,7 +185,7 @@ function showStudents(newStudent) {
     const modalOpen = document.querySelector(".modal-background");
     modalOpen.classList.remove("hide");
     const modalHouse = document.querySelector(".modal-house");
-    modalHouse.textContent = newStudent.house;
+    modalHouse.textContent = `House: ${newStudent.house}`;
     const modalName = document.querySelector(".modal-name");
     modalName.textContent = newStudent.firstName + " " + newStudent.lastName;
   });
