@@ -18,6 +18,7 @@ const studentObject = {
   house: ""
 };
 
+/*-------------------INITITALISE------------------*/
 function init() {
   console.log("ready");
 
@@ -26,54 +27,34 @@ function init() {
     document.querySelector("body").setAttribute("data-house", this.value);
   });
 
-  // TODO: add event-listeners to filter and sort buttons
-  document.querySelector("[data-filter='gryffindor']").addEventListener("click", filterGryffindor);
-  document.querySelector("[data-filter='hufflepuff']").addEventListener("click", filterHufflepuff);
-  document.querySelector("[data-filter='ravenclaw']").addEventListener("click", filterRavenclaw);
-  document.querySelector("[data-filter='slytherin']").addEventListener("click", filterSlytherin);
-
-  document.querySelector("[data-sort='firstname']").addEventListener("click", sortName);
-  document.querySelector("[data-sort='lastname']").addEventListener("click", sortName);
+  // event-listeners for filter & sort
+  document.querySelectorAll(".filter").forEach(button => {
+    button.addEventListener("click", setFilter);
+  });
+  document.querySelectorAll(".sort").forEach(p => {
+    p.addEventListener("click", sortName);
+  });
 
   fetchJson();
 }
 
-/*------------------FILTER------------------*/
-function filterGryffindor() {
-  const onlyGryffindor = studentArr.filter(isGryffindor);
-  showList(onlyGryffindor);
+/*----------------------FILTER---------------------*/
+function setFilter() {
+  const filter = this.dataset.filter;
+  const filteredStudents = sendFiltered(filter);
+  currentStudents = filteredStudents;
+  fetchList(currentStudents);
 }
 
-function isGryffindor(newStudent) {
-  return newStudent.house === "gryffindor";
-}
+function sendFiltered(filter) {
+  const filterStudents = studentArr.filter(filterFunction);
 
-function filterHufflepuff() {
-  const onlyHufflepuff = studentArr.filter(isHufflepuff);
-  showList(onlyHufflepuff);
-}
+  function filterFunction(newStudent) {
+    //console.log(newStudent)
+    return filter === newStudent.house;
+  }
+  return filterStudents;
 
-function isHufflepuff(newStudent) {
-  return newStudent.house === "hufflepuff";
-}
-
-function filterRavenclaw() {
-  const onlyRavenclaw = studentArr.filter(isRavenclaw);
-  showList(onlyRavenclaw);
-}
-
-function isRavenclaw(newStudent) {
-  return newStudent.house === "ravenclaw";
-}
-
-function filterSlytherin() {
-  const onlySlytherin = studentArr.filter(isSlytherin);
-  showList(onlySlytherin);
-}
-
-function isSlytherin(newStudent) {
-  return newStudent.house === "slytherin";
-}
 
 /*-------------------SORT-------------------*/
 function sortName() {
@@ -155,47 +136,53 @@ function separateData(student) {
   newStudent.lastName = nameArr[nameArr.length - 1];
 
   // house
-  newStudent.house = student.house.toLowerCase();
+  newStudent.house = student.house.toLowerCase() /* + student.house(substring(0, 1)).toUpperCase(); */
 
   studentArr.push(newStudent);
   console.log(studentArr)
 
-  showStudents(newStudent);
+  fetchList(studentArr);
+}
+
+function fetchList(newStudent) {
+  document.querySelector("#students").innerHTML = "";
+
+  newStudent.forEach(showStudents);
 }
 
 /*-------------------DISPLAY NEW STUDENTLIST------------------*/
-function showStudents(newStudent) {
+function showStudents(student) {
   // clone HTML template
   const template = document.querySelector("#template").content;
   const copy = template.cloneNode(true);
 
-  copy.querySelector(".studentFirstName", ".studentLastName").textContent = newStudent.firstName + " " + newStudent.lastName;
+  copy.querySelector(".studentFirstName", ".studentLastName").textContent = student.firstName + " " + student.lastName;
   copy.querySelector(".modalBtn").addEventListener("click", function () {
 
     // match color and crest with student in modal
     const modal = document.querySelector(".modal-content");
-    modal.setAttribute("data-house", newStudent.house);
+    modal.setAttribute("data-house", student.house);
 
     // TODO: add blood status
 
     // TODO: add if prefect, expelled, or member of inquisitorial squad
 
     // TODO: add student image
-    modal.querySelector(".photo").src = `images/${newStudent.lastName.toLowerCase() + "_" + newStudent.firstName[0].substring(0, 1).toLowerCase() + ".png"}`;
+    modal.querySelector(".photo").src = `images/${student.lastName.toLowerCase() + "_" + student.firstName[0].substring(0, 1).toLowerCase() + ".png"}`;
     // add house crest
-    modal.querySelector(".crest").src = `house-crests/${newStudent.house.toLowerCase()}.png`;
+    modal.querySelector(".crest").src = `house-crests/${student.house.toLowerCase()}.png`;
 
     const modalOpen = document.querySelector(".modal-background");
     modalOpen.classList.remove("hide");
     const modalHouse = document.querySelector(".modal-house");
-    modalHouse.textContent = `House: ${newStudent.house}`;
+    modalHouse.textContent = `House: ${student.house}`;
     const modalName = document.querySelector(".modal-name");
-    modalName.textContent = newStudent.firstName + " " + newStudent.lastName;
+    modalName.textContent = student.firstName + " " + student.lastName;
   });
 
   // append template copy
   document.querySelector("#students").appendChild(copy);
-
+  console.log(student)
   closeModal();
 }
 

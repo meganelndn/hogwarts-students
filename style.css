@@ -23,7 +23,7 @@
 
     #students {
         display: grid;
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
         grid-gap: 2rem;
         text-align: center;
         margin-left: 30px;
@@ -240,4 +240,19 @@ article {
     --primary-color: #2a623d;
     --secondary-color: #fefefe;
     --house-crest: url(house-crests/slytherin.png);
+}
+
+.search,
+#mySearch {
+    float: right;
+}
+
+.search {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+#mySearch {
+    margin-right: 10px;
+    margin-top: 10px;
 }
