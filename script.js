@@ -71,27 +71,54 @@ function sortName() {
 // ascending order
 function nameDesc() {
   function compareName(a, b) {
-    if (a.name < b.name) {
+    if (a.firstName < b.firstName) {
       return -1;
-    } else if (a.name > b.name) {
+    } else if (a.firstName > b.firstName) {
       return 1;
     }
   }
   studentArr.sort(compareName);
-  showStudents(studentArr);
+  fetchList(studentArr);
+  console.log(studentArr)
 }
 
 // descending order
 function nameAsc() {
   function compareName(a, b) {
-    if (a.name < b.name) {
+    if (a.firstName < b.firstName) {
       return 1;
-    } else if (a.name > b.name) {
+    } else if (a.firstName > b.firstName) {
       return -1;
     }
   }
   studentArr.sort(compareName);
-  showStudents(studentArr);
+  fetchList(studentArr);
+}
+
+function nameDesc() {
+  function compareName(a, b) {
+    if (a.firstName < b.firstName) {
+      return -1;
+    } else if (a.firstName > b.firstName) {
+      return 1;
+    }
+  }
+  studentArr.sort(compareName);
+  fetchList(studentArr);
+  console.log(studentArr)
+}
+
+// descending order
+function nameAsc() {
+  function compareName(a, b) {
+    if (a.firstName < b.firstName) {
+      return 1;
+    } else if (a.firstName > b.firstName) {
+      return -1;
+    }
+  }
+  studentArr.sort(compareName);
+  fetchList(studentArr);
 }
 
 /*-----------------------LOAD JSON DATA--------------------*/
@@ -126,16 +153,18 @@ function separateData(student) {
   newStudent.firstName = nameArr[0];
 
   // middle name & nick name
-  if (nameArr.length > 2) {
-    newStudent.middleName = nameArr.slice(1, nameArr.length - 1);
-    newStudent.nickName = nameArr.slice(1, nameArr.length - 1);
+  if (nameArr.length === 3) {
+    newStudent.middleName = nameArr[1];
+  } else if (nameArr[1] === "") {
+    newStudent.nickName = nameArr[1];
   }
 
   // last name
   newStudent.lastName = nameArr[nameArr.length - 1];
 
   // house
-  newStudent.house = student.house.toLowerCase(); /* + student.house(substring(0, 1)).toUpperCase(); */
+  //newStudent.house = (student.house.substring(0, 1)).toUpperCase() + (student.house.substring(1, )).toLowerCase();
+  newStudent.house = student.house.toLowerCase();
 
   studentArr.push(newStudent);
   console.log(studentArr)
