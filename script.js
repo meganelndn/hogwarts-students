@@ -195,7 +195,7 @@ function showStudents(student) {
   const template = document.querySelector("#template").content;
   const copy = template.cloneNode(true);
 
-  copy.querySelector(".studentFirstName", ".studentLastName").textContent = student.firstName + " " + student.lastName;
+  copy.querySelector(".studentFirstName", ".studentLastName").textContent = student.firstName + " " + student.middleName + " " + student.lastName;
   copy.querySelector(".modalBtn").addEventListener("click", function () {
 
     // match color and crest with student in modal
@@ -216,7 +216,7 @@ function showStudents(student) {
     const modalHouse = document.querySelector(".modal-house");
     modalHouse.textContent = `House: ${student.house}`;
     const modalName = document.querySelector(".modal-name");
-    modalName.textContent = student.firstName + " " + student.lastName;
+    modalName.textContent = student.firstName + " " + student.middleName + " " + student.lastName;
   });
 
   // append template copy
