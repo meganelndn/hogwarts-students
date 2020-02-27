@@ -73,14 +73,14 @@ p {
     margin-right: auto;
 }
 
-/*-----------------------SORT--------------------*/
+/*---------------------------SORT------------------------*/
 [data-sort="firstname"]:hover,
 [data-sort="lastname"]:hover {
     text-decoration: underline;
     cursor: pointer;
 }
 
-/*----------------------FILTER-------------------*/
+/*--------------------------FILTER------------------------*/
 .filter {
     padding: 10px;
     cursor: pointer;
@@ -209,7 +209,10 @@ article {
     font-family: "Courier";
 }
 
-/*-------------------DATA ATTRIBUTES----------------*/
+/*--------------------------------SEARCH OPTION----------------------------*/
+#search-icon {}
+
+/*------------------------------DATA ATTRIBUTES----------------------------*/
 [data-house="Hufflepuff"],
 [data-filter="Hufflepuff"] {
     --primary-color: #ecb939;
@@ -240,19 +243,4 @@ article {
     --primary-color: #2a623d;
     --secondary-color: #fefefe;
     --house-crest: url(house-crests/slytherin.png);
-}
-
-.search,
-#mySearch {
-    float: right;
-}
-
-.search {
-    margin-left: 10px;
-    margin-top: 10px;
-}
-
-#mySearch {
-    margin-right: 10px;
-    margin-top: 10px;
 }

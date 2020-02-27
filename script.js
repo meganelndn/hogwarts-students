@@ -24,6 +24,7 @@ function init() {
   // listen for theme selection
   document.querySelector("select#theme").addEventListener("change", function () {
     document.querySelector("body").setAttribute("data-house", this.value);
+    console.log("data-house", this.house)
   });
 
   // event-listeners for filter & sort
@@ -166,8 +167,6 @@ function separateData(student) {
   // middle name & nick name
   if (nameArr.length === 3) {
     newStudent.middleName = nameArr[1];
-  } else if (nameArr[1] === "") {
-    newStudent.nickName = nameArr[1];
   }
 
   // last name
@@ -206,8 +205,17 @@ function showStudents(student) {
 
     // TODO: add if prefect, expelled, or member of inquisitorial squad
 
-    // TODO: add student image
-    modal.querySelector(".photo").src = `images/${student.lastName.toLowerCase() + "_" + student.firstName[0].substring(0, 1).toLowerCase() + ".png"}`;
+    // add student image 
+    if (student.firstName == "Padma") {
+      modal.querySelector(".photo").src = "images/" + student.lastName.toLowerCase() + "_" + "padme" + ".png";
+    } else if (student.lastName == "Patil") {
+      modal.querySelector(".photo").src = "images/" + student.lastName.toLowerCase() + "_" + student.firstName.toLowerCase() + ".png";
+    } else if (student.lastName == "Finch-fletchley") {
+      modal.querySelector(".photo").src = "images/" + "fletchley" + "_" + student.firstName.substring(0, 1).toLowerCase() + ".png";
+    } else {
+      modal.querySelector(".photo").src = "images/" + student.lastName.toLowerCase() + "_" + student.firstName[0].substring(0, 1).toLowerCase() + ".png";
+    }
+
     // add house crest
     modal.querySelector(".crest").src = `house-crests/${student.house.toLowerCase()}.png`;
 
@@ -262,4 +270,26 @@ function generalCleanUp(fullName, index) {
   let newStr = newArr.join("");
   nameArr[index] = newStr;
   console.log(newStr)
+
+  /* searchFunction(); */
 }
+
+/* function searchFunction() {
+  // Declare variables
+  var input, filter, ul, li, a, i, txtValue;
+  input = document.querySelector('myInput');
+  filter = input.value.toUpperCase();
+  ul = document.querySelector("myUL");
+  //li = ul.querySelector('li');
+
+  // Loop through all list items, and hide those who don't match the search query
+  for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("a")[0];
+    txtValue = a.textContent || a.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+} */
