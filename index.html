@@ -11,30 +11,23 @@
 
 <body data-house="">
 
-    <form>
-        <div>
-            <input type="search" id="mySearch" name="q">
-            <button class="search">Search</button>
-        </div>
-    </form>
-
     <h1>Hacked Hogwarts 1991</h1>
     <img src="house-crests/hogwarts.png" alt="hogwartCrest" class="hogwarts">
     <h2>Scroll down for some magic</h2>
 
-    <!---------------------------THEME CHANGER------------------------->
+    <!-----------------------------------THEME CHANGER----------------------------------->
     <label id="theme-changer">
         Choose your house theme
         <select name="theme" id="theme">
             <option value="-">-</option>
-            <option value="gryffindor" data-house="Gryffindor">Gryffindor</option>
-            <option value="hufflepuff" data-house="Hufflepuff">Hufflepuff</option>
-            <option value="ravenclaw" data-house="Ravenclaw">Ravenclaw</option>
-            <option value="slytherin" data-house="Slytherin">Slytherin</option>
+            <option value="Gryffindor" data-house="Gryffindor">Gryffindor</option>
+            <option value="Hufflepuff" data-house="Hufflepuff">Hufflepuff</option>
+            <option value="Ravenclaw" data-house="Ravenclaw">Ravenclaw</option>
+            <option value="Slytherin" data-house="Slytherin">Slytherin</option>
         </select>
     </label>
 
-    <!-------------------------FILTERING BUTTONS----------------------->
+    <!---------------------------------FILTERING BUTTONS--------------------------------->
     <div id="house-buttons">
         Filter by house:
         <button class="filter" data-action="filter" data-filter="Gryffindor">Gryffindor</button>
@@ -48,14 +41,24 @@
         <button class="filter" data-action="filter" data-filter="not-expelled">Not expelled</button>
     </div>
 
-    <!----------------------------SORTING---------------------------->
+    <!----------------------------------SEARCH OPTION------------------------------------>
+    <!---------------------------------W3 Schools Code----------------------------------->
+    <div id="search">
+        <input type="text" class="search-option placeholder=" Search for names..." name="search">
+        <div id="search-icon"><img src="icons/search.png" alt="search-icon">
+            <source>
+        </div>
+    </div>
+    <!-------------https://www.w3schools.com/howto/howto_js_filter_lists.asp--------------->
+
+    <!--------------------------------------SORTING---------------------------------------->
     <div id="sorting">
         Sort by:
         <p class="sort" data-action="sort" data-sort-direction="asc" data-sort="firstname">First Name</p>
         <p class="sort" data-action="sort" data-sort-direction="asc" data-sort="lastname">Last Name</p>
     </div>
 
-    <!-------------------------STUDENT TEMPLATE----------------------->
+    <!----------------------------------STUDENT TEMPLATE------------------------------------>
     <h1>Current students:</h1>
     <template id="template" class="current students">
         <article>
@@ -77,7 +80,7 @@
             <li></li>
         </ul> -->
 
-    <!-------------------------------MODAL------------------------------>
+    <!-----------------------------------------MODAL------------------------------------------>
     <div class="modal-background hide">
         <div class="modal-content" id="modal-content" data-house="">
             <h2 class="modal-name">Student name</h2>
