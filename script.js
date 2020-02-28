@@ -1,24 +1,30 @@
 "use strict";
 window.addEventListener("DOMContentLoaded", init);
 
-/*------------------STUDENT ARRAY--------------------*/
+/*------------------------------STUDENT ARRAY----------------------------*/
 let studentArr = [];
 let currentStudents = [];
+let expelledStudents = [];
+let bloodStatus = [];
 
-/*-----------------FULLNAME OBJECT------------------*/
+/*-----------------------------FULLNAME OBJECT---------------------------*/
 let nameArr = {};
 
-/*-----------------OBJECT PROTOTYPE------------------*/
+/*-----------------------------OBJECT PROTOTYPE--------------------------*/
 const studentObject = {
   firstName: "",
   lastName: "",
   middleName: "",
   nickName: "",
   image: "",
-  house: ""
+  house: "",
+  prefect: false,
+  expelled: false,
+  gender: "",
+  blood: ""
 };
 
-/*-------------------INITITALISE------------------*/
+/*-------------------------------INITITALISE-----------------------------*/
 function init() {
 
   // listen for theme selection
@@ -37,7 +43,7 @@ function init() {
   fetchJson();
 }
 
-/*----------------------FILTER---------------------*/
+/*----------------------------------FILTER------------------------------*/
 function setFilter() {
   const filter = this.dataset.filter;
   const filteredStudents = sendFiltered(filter);
@@ -55,7 +61,7 @@ function sendFiltered(filter) {
   return filterStudents;
 }
 
-/*-------------------SORT-------------------*/
+/*------------------------------------SORT-------------------------------*/
 function sortFirstName() {
   if (event.target.dataset.sortDirection === "asc") {
     event.target.dataset.sortDirection = "desc";
@@ -133,22 +139,21 @@ function lastNameAsc() {
   fetchList(studentArr);
 }
 
-/*-----------------------LOAD JSON DATA--------------------*/
-
+/*-----------------------LOAD JSON DATA----------------------*/
 function fetchJson() {
   fetch("https://petlatkea.dk/2020/hogwarts/students.json")
     .then(res => res.json())
     .then(getStudents);
 }
 
-/*-------------------DISPLAY STUDENTLIST--------------------*/
+/*---------------------DISPLAY STUDENTLIST-------------------*/
 function getStudents(studentArr) {
   studentArr.forEach(separateData);
 }
 
-/*---------------------CLEAN JSON DATA-----------------------*/
+/*-----------------------CLEAN JSON DATA---------------------*/
 function separateData(student) {
-  // Create new object from prototype
+
   let newStudent = Object.create(studentObject);
   //console.log(student) // logs each student object
 
@@ -172,6 +177,9 @@ function separateData(student) {
   // last name
   newStudent.lastName = nameArr[nameArr.length - 1];
 
+  // gender
+  newStudent.gender = student.gender;
+
   // house
   newStudent.house = (student.house.substring(0, 1)).toUpperCase() + (student.house.substring(1, )).toLowerCase();
   //newStudent.house = student.house.toLowerCase();
@@ -179,17 +187,67 @@ function separateData(student) {
   studentArr.push(newStudent);
   console.log(studentArr)
 
+  function generalCleanUp(fullName, index) {
+    // if index 0 = empty, delete from beginning of array
+    if (nameArr[0] == "") {
+      nameArr.shift();
+    }
+
+    // if (nameArr.length -1) = empty, delete from end of array
+    if (nameArr[nameArr.length - 1] == "") {
+      nameArr.pop();
+    }
+
+    /*--------------OBJECT TO ARRAY----------------*/
+    let newArr = Array.from(nameArr[index]);
+
+    //delete or change character
+    newArr.forEach((character, index) => {
+      if (character == '"' || character == `"\"`) {
+        newArr[index] = "";
+      } else if (index == 0) {
+        newArr[0] = newArr[0].toUpperCase();
+      } else {
+        newArr[index] = newArr[index].toLowerCase();
+      }
+    });
+
+    // update that string in the fullNameArray after changing each character
+    let newStr = newArr.join("");
+    nameArr[index] = newStr;
+    console.log(newStr)
+  }
+
   fetchList(studentArr);
 }
 
-function fetchList(newStudent) {
+function fetchList(student) {
   document.querySelector("#students").innerHTML = "";
 
-  newStudent.forEach(showStudents);
+  student.forEach(showStudents);
 }
 
 /*-------------------DISPLAY NEW STUDENTLIST------------------*/
 function showStudents(student) {
+
+  /* document.querySelector("#search").addEventListener("keyup", function (search) {
+    console.log("key up");
+
+    const searchValue = search.target.value.toLowerCase();
+    const students = document.querySelector("#student");
+
+    Array.from(students).forEach(student => {
+      const name = student.querySelector(".studentFirstName").textContent;
+      student.className = "student";
+
+      if (name.toLowerCase().includes(searchValue)) {
+        student.classList.add("student");
+      } else {
+        student.classList.add("hide");
+      }
+    })
+  }) */
+
   // clone HTML template
   const template = document.querySelector("#template").content;
   const copy = template.cloneNode(true);
@@ -239,57 +297,3 @@ function closeModal() {
     modalClose.classList.add("hide");
   });
 }
-
-/*-------------------DISPLAY CLEANED UP STUDENTLIST------------------*/
-function generalCleanUp(fullName, index) {
-  // if index 0 = empty, delete from beginning of array
-  if (nameArr[0] == "") {
-    nameArr.shift();
-  }
-
-  // if (nameArr.length -1) = empty, delete from end of array
-  if (nameArr[nameArr.length - 1] == "") {
-    nameArr.pop();
-  }
-
-  /*--------------OBJECT TO ARRAY----------------*/
-  let newArr = Array.from(nameArr[index]);
-
-  //delete or change character
-  newArr.forEach((character, index) => {
-    if (character == '"' || character == `"\"`) {
-      newArr[index] = "";
-    } else if (index == 0) {
-      newArr[0] = newArr[0].toUpperCase();
-    } else {
-      newArr[index] = newArr[index].toLowerCase();
-    }
-  });
-
-  // update that string in the fullNameArray after changing each character
-  let newStr = newArr.join("");
-  nameArr[index] = newStr;
-  console.log(newStr)
-
-  /* searchFunction(); */
-}
-
-/* function searchFunction() {
-  // Declare variables
-  var input, filter, ul, li, a, i, txtValue;
-  input = document.querySelector('myInput');
-  filter = input.value.toUpperCase();
-  ul = document.querySelector("myUL");
-  //li = ul.querySelector('li');
-
-  // Loop through all list items, and hide those who don't match the search query
-  for (i = 0; i < li.length; i++) {
-    a = li[i].getElementsByTagName("a")[0];
-    txtValue = a.textContent || a.innerText;
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      li[i].style.display = "";
-    } else {
-      li[i].style.display = "none";
-    }
-  }
-} */

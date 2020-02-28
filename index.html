@@ -42,14 +42,9 @@
     </div>
 
     <!----------------------------------SEARCH OPTION------------------------------------>
-    <!---------------------------------W3 Schools Code----------------------------------->
-    <div id="search">
-        <input type="text" class="search-option placeholder=" Search for names..." name="search">
-        <div id="search-icon"><img src="icons/search.png" alt="search-icon">
-            <source>
-        </div>
-    </div>
-    <!-------------https://www.w3schools.com/howto/howto_js_filter_lists.asp--------------->
+    <!-- <div id="search">
+        <input type="text" class="search-option" placeholder="Search for names..." name="search">
+    </div> -->
 
     <!--------------------------------------SORTING---------------------------------------->
     <div id="sorting">
@@ -60,25 +55,27 @@
 
     <!----------------------------------STUDENT TEMPLATE------------------------------------>
     <h1>Current students:</h1>
-    <template id="template" class="current students">
+    <template id="template" class="current-students">
         <article>
-            <h2 class="studentFirstName"></h2>
-            <h2 class="studentLastName"></h2>
-            <button class="modalBtn">See more</button>
-            <button class="prefectBtn">Set prefect</button>
-            <button class="expelBtn">Expel</button>
+            <div id="student">
+                <h2 class="studentFirstName"></h2>
+                <h2 class="studentLastName"></h2>
+                <button class="modalBtn">See more</button>
+                <button class="prefectBtn">Set prefect</button>
+                <button class="expelBtn">Expel</button>
+            </div>
         </article>
     </template>
 
     <section id="students"></section>
 
-    <!-- <ul class="expelled-students">
-            <li></li>
-        </ul>
-
-        <ul class="total-students">
-            <li></li>
-        </ul> -->
+    <!-- <div class="prefect-modal">
+        <article class="prefect-modal-content">
+            <p class="prefect-message"></p>
+            <button class="student_1"></button>
+            <button class="student_2"></button>
+        </article>
+    </div> -->
 
     <!-----------------------------------------MODAL------------------------------------------>
     <div class="modal-background hide">
