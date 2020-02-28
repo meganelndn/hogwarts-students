@@ -255,12 +255,6 @@ function showStudents(student) {
   const template = document.querySelector("#template").content;
   const copy = template.cloneNode(true);
 
-  // Event listener to click on star
-  copy.querySelector("[data-field=star]").addEventListener("click", function () {
-    maxTwo(student);
-    differentType(student);
-  })
-
   // Prefect selection: show star "⭐" or "☆"
   copy.querySelector("[data-field=star").dataset.star = student.prefect;
   if (student.prefect === true) {
@@ -268,6 +262,11 @@ function showStudents(student) {
   } else {
     copy.querySelector("[data-field=star]").textContent = "☆";
   }
+  // Event listener to click on star
+  copy.querySelector("[data-field=star]").addEventListener("click", function () {
+    maxTwo(student);
+    differentType(student);
+  })
 
   // Clone name for student list
   copy.querySelector(".studentFirstName", ".studentLastName").textContent = student.firstName + " " + student.middleName + " " + student.lastName;
@@ -283,9 +282,6 @@ function showStudents(student) {
   } else {
     copy.querySelector(".photo").src = "images/" + student.lastName.toLowerCase() + "_" + student.firstName[0].substring(0, 1).toLowerCase() + ".png";
   }
-
-  // Add gender
-  copy.querySelector(".gender").textContent = `Gender: ${student.gender}`;
 
   copy.querySelector(".modalBtn").addEventListener("click", function () {
 
@@ -345,8 +341,8 @@ function maxTwo(student) {
   if (prefects.length > 1) {
     document.querySelector("#onlytwoprefects").classList.add("show");
     console.log(prefects)
-    document.querySelector("#onlytwoprefects .student1").textContent = `${prefects[0].firstName} ${prefects[0].lastName}, the ${prefects[0].gender}`;
-    document.querySelector("#onlytwoprefects .student2").textContent = `${prefects[1].firstName} ${prefects[1].lastName}, the ${prefects[1].gender}`;
+    document.querySelector("#onlytwoprefects .student1").textContent = `${prefects[0].firstName} ${prefects[0].lastName}`;
+    document.querySelector("#onlytwoprefects .student2").textContent = `${prefects[1].firstName} ${prefects[1].lastName}`;
     document.querySelector("#onlytwoprefects [data-action=remove1]").addEventListener("click", function () {
       console.log(prefects[0])
       prefects[0].prefect = false;
@@ -366,8 +362,6 @@ function maxTwo(student) {
       document.querySelector("#onlytwoprefects").classList.remove("show")
     })
   }
-
-  //showStudents(student);
 }
 
 function differentType(student) {
