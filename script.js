@@ -24,19 +24,18 @@ const studentObject = {
   blood: ""
 };
 
-/*-------------------------------INITITALISE-----------------------------*/
+/*-------------------------------INIT FUNCTION---------------------------*/
 function init() {
-
   // listen for theme selection
   document.querySelector("select#theme").addEventListener("change", function () {
     document.querySelector("body").setAttribute("data-house", this.value);
     console.log("data-house", this.house)
   });
-
-  // event-listeners for filter & sort
+  // event-listener for filtering
   document.querySelectorAll(".filter").forEach(button => {
     button.addEventListener("click", setFilter);
   });
+  // event-listener for sorting
   document.querySelector("[data-sort='firstname']").addEventListener("click", sortFirstName);
   document.querySelector("[data-sort='lastname']").addEventListener("click", sortLastName);
 
@@ -248,10 +247,25 @@ function showStudents(student) {
     })
   }) */
 
-  // clone HTML template
+  // Clone HTML template
   const template = document.querySelector("#template").content;
   const copy = template.cloneNode(true);
 
+  // Prefect selection: show star "⭐" or "☆"
+  copy.querySelector("[data-field=star").dataset.star = student.prefect;
+  if (student.prefect === true) {
+    copy.querySelector("[data-field=star]").textContent = "⭐";
+  } else {
+    copy.querySelector("[data-field=star]").textContent = "☆";
+  }
+
+  // Event listener to click on star
+  copy.querySelector("[data-field=star]").addEventListener("click", function () {
+    maxTwo(student);
+    differentType(student);
+  })
+
+  // Clone name for student lsit
   copy.querySelector(".studentFirstName", ".studentLastName").textContent = student.firstName + " " + student.middleName + " " + student.lastName;
   copy.querySelector(".modalBtn").addEventListener("click", function () {
 
@@ -280,15 +294,99 @@ function showStudents(student) {
     const modalOpen = document.querySelector(".modal-background");
     modalOpen.classList.remove("hide");
     const modalHouse = document.querySelector(".modal-house");
-    modalHouse.textContent = `House: ${student.house}`;
+    modalHouse.textContent = "House: " + student.house;
     const modalName = document.querySelector(".modal-name");
-    modalName.textContent = student.firstName + " " + student.middleName + " " + student.lastName;
+    modalName.textContent = "Full name: " + student.firstName + " " + student.middleName + " " + student.lastName;
+
+    // Add gender
+    modal.querySelector(".gender").textContent = `Gender: ${student.gender}`;
   });
 
   // append template copy
   document.querySelector("#students").appendChild(copy);
   console.log(student)
   closeModal();
+}
+
+/*-----------------------------------------------------PREFECTS SELECTION-------------------------------------------------*/
+function maxTwo(student) {
+
+  //WINNER LENTGH SELECTION
+  console.log(prefects.length)
+  if (prefects.length > 1) {
+    console.log("more than 2 selected")
+    document.querySelector("#onlytwoprefects").classList.add("show");
+    console.log(prefects)
+    document.querySelector("#onlytwoprefects .student1").textContent = `${prefects[0].name}, the ${prefects[0].gender}`;
+    document.querySelector("#onlytwoprefects .student2").textContent = `${prefects[1].name}, the ${prefects[1].gender}`;
+    document.querySelector("#onlytwoprefects [data-action=remove1]").addEventListener("click", function () {
+      console.log(prefects[0])
+      //sets to false the animal to be removed:
+      prefects[0].prefect = false;
+      //selects the animal user is clicking now:
+      student.prefect = true;
+      displayList(allAnimals)
+      document.querySelector("#onlytwoprefects").classList.remove("show")
+    })
+    document.querySelector("#onlytwoprefects [data-action=remove2]").addEventListener("click", function () {
+      console.log(prefects[1])
+      //sets to false the animal to be removed:
+      prefects[1].prefect = false;
+      //selects the animal user is clicking now:
+      student.prefect = true;
+      displayList(allAnimals)
+      document.querySelector("#onlytwoprefects").classList.remove("show")
+    })
+  }
+
+}
+
+function differentType(student) {
+
+  //WINNER TYPE SELECTION
+  if (student.prefect) {
+    //console.log("this animal is NOT A WINNER")
+    student.prefect = false;
+    //console.log(animal)
+  } else {
+    //console.log("this animal is a WINNER")
+    function checkGender(x) {
+      return x.type === student.gender;
+    }
+    //
+    if (prefects.some(checkGender) == false) {
+      //console.log("animal type not there");
+      student.prefect = true;
+    } else {
+      console.log("student gender IS there");
+      document.querySelector("#onlyonegender").classList.add("show")
+      //find the one that has the same type
+      //console.log(winners[0].winner)
+      document.querySelector("#onlyonegender .student1").textContent = `${prefects[0].name}, the ${prefects[0].gender}`;
+
+      document.querySelector("#onlyonegender [data-action=remove1]").addEventListener("click", function () {
+        console.log(prefects[0])
+        //give the value False to the duplicate that has to be removed:
+        prefects[0].prefect = false
+        student.prefect = true;
+        //exclude the repeated animal:
+        //console.log(winners.splice(winners[0].winner))
+        displayList(allAnimals);
+        document.querySelector("#onlyonegender").classList.remove("show")
+      })
+
+      document.querySelector("#onlyonegender .closebutton").addEventListener("click", function () {
+        console.log("closing test")
+        document.querySelector("#onlyonegender").classList.remove("show")
+      })
+
+      displayList(allAnimals);
+    }
+
+    prefects = allAnimals.filter(students => students.prefect == true);
+  }
+
+  fetchList()
 }
 
 function closeModal() {
