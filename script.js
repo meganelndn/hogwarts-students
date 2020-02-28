@@ -172,6 +172,8 @@ function separateData(student) {
   // middle name & nick name
   if (nameArr.length === 3) {
     newStudent.middleName = nameArr[1];
+  } else if (nameArr.length === 2) {
+    newStudent.middleName = "";
   }
 
   // last name
@@ -304,7 +306,7 @@ function showStudents(student) {
     } else if (student.lastName == "Finch-fletchley") {
       modal.querySelector(".photo").src = "images/" + "fletchley" + "_" + student.firstName.substring(0, 1).toLowerCase() + ".png";
     } else {
-      modal.querySelector(".photo").src = "images/" + student.lastName.toLowerCase() + "_" + student.firstName[0].substring(0, 1).toLowerCase() + ".png";
+      modal.querySelector(".modal-photo").src = "images/" + student.lastName.toLowerCase() + "_" + student.firstName[0].substring(0, 1).toLowerCase() + ".png";
     }
 
     // add house crest
