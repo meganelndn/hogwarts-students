@@ -4,8 +4,9 @@ window.addEventListener("DOMContentLoaded", init);
 /*------------------------------STUDENT ARRAY----------------------------*/
 let studentArr = [];
 let currentStudents = [];
-let expelledStudents = [];
-let bloodStatus = [];
+let prefects = [];
+//let expelledStudents = [];
+//let bloodStatus = [];
 
 /*-----------------------------FULLNAME OBJECT---------------------------*/
 let nameArr = {};
@@ -24,19 +25,18 @@ const studentObject = {
   blood: ""
 };
 
-/*-------------------------------INITITALISE-----------------------------*/
+/*-------------------------------INIT FUNCTION---------------------------*/
 function init() {
-
   // listen for theme selection
   document.querySelector("select#theme").addEventListener("change", function () {
     document.querySelector("body").setAttribute("data-house", this.value);
     console.log("data-house", this.house)
   });
-
-  // event-listeners for filter & sort
+  // event-listener for filtering
   document.querySelectorAll(".filter").forEach(button => {
     button.addEventListener("click", setFilter);
   });
+  // event-listener for sorting
   document.querySelector("[data-sort='firstname']").addEventListener("click", sortFirstName);
   document.querySelector("[data-sort='lastname']").addEventListener("click", sortLastName);
 
@@ -177,12 +177,15 @@ function separateData(student) {
   // last name
   newStudent.lastName = nameArr[nameArr.length - 1];
 
+  if (newStudent.lastName == "Leanne") {
+    newStudent.lastName = "";
+  }
+
   // gender
   newStudent.gender = student.gender;
 
   // house
   newStudent.house = (student.house.substring(0, 1)).toUpperCase() + (student.house.substring(1, )).toLowerCase();
-  //newStudent.house = student.house.toLowerCase();
 
   studentArr.push(newStudent);
   console.log(studentArr)
@@ -248,11 +251,42 @@ function showStudents(student) {
     })
   }) */
 
-  // clone HTML template
+  // Clone HTML template
   const template = document.querySelector("#template").content;
   const copy = template.cloneNode(true);
 
+  // Event listener to click on star
+  copy.querySelector("[data-field=star]").addEventListener("click", function () {
+    maxTwo(student);
+    differentType(student);
+  })
+
+  // Prefect selection: show star "⭐" or "☆"
+  copy.querySelector("[data-field=star").dataset.star = student.prefect;
+  if (student.prefect === true) {
+    copy.querySelector("[data-field=star]").textContent = "⭐";
+  } else {
+    copy.querySelector("[data-field=star]").textContent = "☆";
+  }
+
+  // Clone name for student list
   copy.querySelector(".studentFirstName", ".studentLastName").textContent = student.firstName + " " + student.middleName + " " + student.lastName;
+  // Add student image
+  if (student.firstName == "Padma") {
+    copy.querySelector(".photo").src = "images/" + student.lastName.toLowerCase() + "_" + "padme" + ".png";
+  } else if (student.lastName == "Patil") {
+    copy.querySelector(".photo").src = "images/" + student.lastName.toLowerCase() + "_" + student.firstName.toLowerCase() + ".png";
+  } else if (student.firstName == "Leanne") {
+    copy.querySelector(".photo").alt = "";
+  } else if (student.lastName == "Finch-fletchley") {
+    copy.querySelector(".photo").src = "images/" + "fletchley" + "_" + student.firstName.substring(0, 1).toLowerCase() + ".png";
+  } else {
+    copy.querySelector(".photo").src = "images/" + student.lastName.toLowerCase() + "_" + student.firstName[0].substring(0, 1).toLowerCase() + ".png";
+  }
+
+  // Add gender
+  copy.querySelector(".gender").textContent = `Gender: ${student.gender}`;
+
   copy.querySelector(".modalBtn").addEventListener("click", function () {
 
     // match color and crest with student in modal
@@ -268,6 +302,8 @@ function showStudents(student) {
       modal.querySelector(".photo").src = "images/" + student.lastName.toLowerCase() + "_" + "padme" + ".png";
     } else if (student.lastName == "Patil") {
       modal.querySelector(".photo").src = "images/" + student.lastName.toLowerCase() + "_" + student.firstName.toLowerCase() + ".png";
+    } else if (student.firstName == "Leanne") {
+      modal.querySelector(".photo").alt = "";
     } else if (student.lastName == "Finch-fletchley") {
       modal.querySelector(".photo").src = "images/" + "fletchley" + "_" + student.firstName.substring(0, 1).toLowerCase() + ".png";
     } else {
@@ -275,20 +311,90 @@ function showStudents(student) {
     }
 
     // add house crest
-    modal.querySelector(".crest").src = `house-crests/${student.house.toLowerCase()}.png`;
+    modal.querySelector(".crest").src = "house-crests/" + student.house.toLowerCase() + ".png";
+    ".png";
 
     const modalOpen = document.querySelector(".modal-background");
     modalOpen.classList.remove("hide");
     const modalHouse = document.querySelector(".modal-house");
-    modalHouse.textContent = `House: ${student.house}`;
+    modalHouse.textContent = "House: " + student.house;
     const modalName = document.querySelector(".modal-name");
-    modalName.textContent = student.firstName + " " + student.middleName + " " + student.lastName;
+    modalName.textContent = "Full name: " + student.firstName + " " + student.middleName + " " + student.lastName;
+
+    // Add gender
+    modal.querySelector(".gender").textContent = `Gender: ${student.gender}`;
   });
 
   // append template copy
   document.querySelector("#students").appendChild(copy);
   console.log(student)
   closeModal();
+}
+
+/*---------------------------------PREFECTS SELECTION-------------------------------*/
+function maxTwo(student) {
+
+  //WINNER LENTGH SELECTION
+  console.log(prefects.length)
+  if (prefects.length > 1) {
+    console.log("more than 2 selected")
+    document.querySelector("#onlytwoprefects").classList.add("show");
+    console.log(prefects)
+    document.querySelector("#onlytwoprefects .student1").textContent = `${prefects[0].firstName} ${prefects[0].lastName}, the ${prefects[0].gender}`;
+    document.querySelector("#onlytwoprefects .student2").textContent = `${prefects[1].firstName} ${prefects[1].lastName}, the ${prefects[1].gender}`;
+    document.querySelector("#onlytwoprefects [data-action=remove1]").addEventListener("click", function () {
+      console.log(prefects[0])
+      prefects[0].prefect = false;
+      student.prefect = true;
+      fetchList(studentArr)
+      document.querySelector("#onlytwoprefects").classList.remove("show")
+    })
+    document.querySelector("#onlytwoprefects [data-action=remove2]").addEventListener("click", function () {
+      console.log(prefects[1])
+      prefects[1].prefect = false;
+      student.prefect = true;
+      fetchList(studentArr)
+      document.querySelector("#onlytwoprefects").classList.remove("show")
+    })
+  }
+
+}
+
+function differentType(student) {
+
+  //WINNER TYPE SELECTION
+  if (student.prefect) {
+    student.prefect = false;
+  } else {
+    function checkGender(x) {
+      return x.type === student.gender;
+    }
+    if (prefects.some(checkGender) == false) {
+      student.prefect = true;
+    } else {
+      document.querySelector("#onlyonegender").classList.add("show")
+      document.querySelector("#onlyonegender .student1").textContent = `${prefects[0].firstName} ${prefects[0].lastName}, the ${prefects[0].student.gender}`;
+      document.querySelector("#onlyonegender [data-action=remove1]").addEventListener("click", function () {
+        console.log(prefects[0])
+
+        prefects[0].prefect = false
+        student.prefect = true;
+
+        fetchList(studentArr);
+        document.querySelector("#onlyonegender").classList.remove("show")
+      })
+
+      document.querySelector("#onlyonegender .closebutton").addEventListener("click", function () {
+        document.querySelector("#onlyonegender").classList.remove("show")
+      })
+
+      fetchList(studentArr);
+    }
+
+    prefects = studentArr.filter(students => students.prefect == true);
+  }
+
+  showStudents(student);
 }
 
 function closeModal() {

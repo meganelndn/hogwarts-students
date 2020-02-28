@@ -58,10 +58,13 @@
     <template id="template" class="current-students">
         <article>
             <div id="student">
+                <div data-field="star">⭐</div>
                 <h2 class="studentFirstName"></h2>
                 <h2 class="studentLastName"></h2>
-                <button class="modalBtn">See more</button>
-                <button class="prefectBtn">Set prefect</button>
+                <img class="photo" alt="studentImg">
+                <p class="gender"></p>
+                <button class="modalBtn">Details</button>
+                <!--<button class="prefectBtn">Set prefect</button>-->
                 <button class="expelBtn">Expel</button>
             </div>
         </article>
@@ -81,11 +84,33 @@
     <div class="modal-background hide">
         <div class="modal-content" id="modal-content" data-house="">
             <h2 class="modal-name">Student name</h2>
+            <p class="gender"></p>
             <img class="photo" alt="studentImg">
             <h2 class="modal-house">House name</h2>
             <img class="crest" alt="house-crest">
         </div>
     </div>
+    </div>
+
+    <!------------------------------------DIALOGS FOR PREFECTS-------------------------------->
+
+    <div id="onlytwoprefects" class="dialog">
+        <div class="dialogcontent">
+            <button class="closebutton">close</button>
+            <h1>You can only have two prefects!</h1>
+            <h2>Remove one, before you appoint more</h2>
+            <p><button data-action="remove1">remove</button> <span class="student1">NAME, the TYPE</span></p>
+            <p><button data-action="remove2">remove</button> <span class="student2">NAME, the TYPE</span></p>
+        </div>
+    </div>
+
+    <div id="onlyonegender" class="dialog">
+        <div class="dialogcontent">
+            <button class="closebutton">close</button>
+            <h1>You can only have one prefect of each gender</h1>
+            <h2>Remove the other if you want to appoint a new one</h2>
+            <p><button data-action="remove1">remove</button> <span class="student1">NAME, the TYPE</span></p>
+        </div>
     </div>
 
     <script src="script.js"></script>
