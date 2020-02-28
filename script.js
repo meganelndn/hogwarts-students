@@ -4,8 +4,9 @@ window.addEventListener("DOMContentLoaded", init);
 /*------------------------------STUDENT ARRAY----------------------------*/
 let studentArr = [];
 let currentStudents = [];
-let expelledStudents = [];
-let bloodStatus = [];
+let prefects = [];
+//let expelledStudents = [];
+//let bloodStatus = [];
 
 /*-----------------------------FULLNAME OBJECT---------------------------*/
 let nameArr = {};
@@ -267,6 +268,19 @@ function showStudents(student) {
 
   // Clone name for student lsit
   copy.querySelector(".studentFirstName", ".studentLastName").textContent = student.firstName + " " + student.middleName + " " + student.lastName;
+  // Add student image
+  if (student.firstName == "Padma") {
+    copy.querySelector(".photo").src = "images/" + student.lastName.toLowerCase() + "_" + "padme" + ".png";
+  } else if (student.lastName == "Patil") {
+    copy.querySelector(".photo").src = "images/" + student.lastName.toLowerCase() + "_" + student.firstName.toLowerCase() + ".png";
+  } else if (student.lastName == "Finch-fletchley") {
+    copy.querySelector(".photo").src = "images/" + "fletchley" + "_" + student.firstName.substring(0, 1).toLowerCase() + ".png";
+  } else {
+    copy.querySelector(".photo").src = "images/" + student.lastName.toLowerCase() + "_" + student.firstName[0].substring(0, 1).toLowerCase() + ".png";
+  }
+  // Add gender
+  copy.querySelector(".gender").textContent = `Gender: ${student.gender}`;
+
   copy.querySelector(".modalBtn").addEventListener("click", function () {
 
     // match color and crest with student in modal
@@ -308,7 +322,7 @@ function showStudents(student) {
   closeModal();
 }
 
-/*-----------------------------------------------------PREFECTS SELECTION-------------------------------------------------*/
+/*---------------------------------PREFECTS SELECTION-------------------------------*/
 function maxTwo(student) {
 
   //WINNER LENTGH SELECTION
@@ -317,24 +331,20 @@ function maxTwo(student) {
     console.log("more than 2 selected")
     document.querySelector("#onlytwoprefects").classList.add("show");
     console.log(prefects)
-    document.querySelector("#onlytwoprefects .student1").textContent = `${prefects[0].name}, the ${prefects[0].gender}`;
-    document.querySelector("#onlytwoprefects .student2").textContent = `${prefects[1].name}, the ${prefects[1].gender}`;
+    document.querySelector("#onlytwoprefects .student1").textContent = `${prefects[0].fullName}, the ${prefects[0].gender}`;
+    document.querySelector("#onlytwoprefects .student2").textContent = `${prefects[1].fullName}, the ${prefects[1].gender}`;
     document.querySelector("#onlytwoprefects [data-action=remove1]").addEventListener("click", function () {
       console.log(prefects[0])
-      //sets to false the animal to be removed:
       prefects[0].prefect = false;
-      //selects the animal user is clicking now:
       student.prefect = true;
-      displayList(allAnimals)
+      fetchList(student)
       document.querySelector("#onlytwoprefects").classList.remove("show")
     })
     document.querySelector("#onlytwoprefects [data-action=remove2]").addEventListener("click", function () {
       console.log(prefects[1])
-      //sets to false the animal to be removed:
       prefects[1].prefect = false;
-      //selects the animal user is clicking now:
       student.prefect = true;
-      displayList(allAnimals)
+      fetchList(student)
       document.querySelector("#onlytwoprefects").classList.remove("show")
     })
   }
@@ -345,48 +355,38 @@ function differentType(student) {
 
   //WINNER TYPE SELECTION
   if (student.prefect) {
-    //console.log("this animal is NOT A WINNER")
     student.prefect = false;
-    //console.log(animal)
   } else {
-    //console.log("this animal is a WINNER")
     function checkGender(x) {
       return x.type === student.gender;
     }
-    //
     if (prefects.some(checkGender) == false) {
-      //console.log("animal type not there");
       student.prefect = true;
     } else {
       console.log("student gender IS there");
       document.querySelector("#onlyonegender").classList.add("show")
-      //find the one that has the same type
-      //console.log(winners[0].winner)
-      document.querySelector("#onlyonegender .student1").textContent = `${prefects[0].name}, the ${prefects[0].gender}`;
-
+      document.querySelector("#onlyonegender .student1").textContent = `${prefects[0].student.firstName}, the ${prefects[0].student.gender}`;
       document.querySelector("#onlyonegender [data-action=remove1]").addEventListener("click", function () {
         console.log(prefects[0])
-        //give the value False to the duplicate that has to be removed:
+
         prefects[0].prefect = false
         student.prefect = true;
-        //exclude the repeated animal:
-        //console.log(winners.splice(winners[0].winner))
-        displayList(allAnimals);
+
+        fetchList(student);
         document.querySelector("#onlyonegender").classList.remove("show")
       })
 
       document.querySelector("#onlyonegender .closebutton").addEventListener("click", function () {
-        console.log("closing test")
         document.querySelector("#onlyonegender").classList.remove("show")
       })
 
-      displayList(allAnimals);
+      fetchList(student);
     }
 
-    prefects = allAnimals.filter(students => students.prefect == true);
+    prefects = studentArr.filter(students => students.prefect == true);
   }
 
-  fetchList()
+  showStudents(student);
 }
 
 function closeModal() {
