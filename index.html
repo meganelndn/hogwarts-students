@@ -29,26 +29,20 @@
 
     <!---------------------------------FILTERING BUTTONS--------------------------------->
     <div id="house-buttons">
-        Filter by house:
+        <p>Filter by:</p>
         <button class="filter" data-action="filter" data-filter="Gryffindor">Gryffindor</button>
         <button class="filter" data-action="filter" data-filter="Hufflepuff">Hufflepuff</button>
         <button class="filter" data-action="filter" data-filter="Ravenclaw">Ravenclaw</button>
         <button class="filter" data-action="filter" data-filter="Slytherin">Slytherin</button>
     </div>
     <div id="expelled-buttons">
-        Filter by:
         <button class="filter" data-action="filter" data-filter="expelled">Expelled</button>
         <button class="filter" data-action="filter" data-filter="not-expelled">Not expelled</button>
     </div>
 
-    <!----------------------------------SEARCH OPTION------------------------------------>
-    <!-- <div id="search">
-        <input type="text" class="search-option" placeholder="Search for names..." name="search">
-    </div> -->
-
     <!--------------------------------------SORTING---------------------------------------->
     <div id="sorting">
-        Sort by:
+        <p>Sort by:</p>
         <p class="sort" data-action="sort" data-sort-direction="asc" data-sort="firstname">First Name</p>
         <p class="sort" data-action="sort" data-sort-direction="asc" data-sort="lastname">Last Name</p>
     </div>
@@ -64,7 +58,6 @@
                 <img class="photo" alt="studentImg">
                 <p class="gender"></p>
                 <button class="modalBtn">Details</button>
-                <!--<button class="prefectBtn">Set prefect</button>-->
                 <button class="expelBtn">Expel</button>
             </div>
         </article>
@@ -88,6 +81,7 @@
             <img class="modal-photo" alt="studentImg">
             <h2 class="modal-house">House name</h2>
             <p class="prefect"></p>
+            <p class="expelled"></p>
             <img class="crest" alt="house-crest">
         </div>
     </div>
