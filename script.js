@@ -177,12 +177,15 @@ function separateData(student) {
   // last name
   newStudent.lastName = nameArr[nameArr.length - 1];
 
+  if (newStudent.lastName == "Leanne") {
+    newStudent.lastName = "";
+  }
+
   // gender
   newStudent.gender = student.gender;
 
   // house
   newStudent.house = (student.house.substring(0, 1)).toUpperCase() + (student.house.substring(1, )).toLowerCase();
-  //newStudent.house = student.house.toLowerCase();
 
   studentArr.push(newStudent);
   console.log(studentArr)
@@ -252,6 +255,12 @@ function showStudents(student) {
   const template = document.querySelector("#template").content;
   const copy = template.cloneNode(true);
 
+  // Event listener to click on star
+  copy.querySelector("[data-field=star]").addEventListener("click", function () {
+    maxTwo(student);
+    differentType(student);
+  })
+
   // Prefect selection: show star "⭐" or "☆"
   copy.querySelector("[data-field=star").dataset.star = student.prefect;
   if (student.prefect === true) {
@@ -260,24 +269,21 @@ function showStudents(student) {
     copy.querySelector("[data-field=star]").textContent = "☆";
   }
 
-  // Event listener to click on star
-  copy.querySelector("[data-field=star]").addEventListener("click", function () {
-    maxTwo(student);
-    differentType(student);
-  })
-
-  // Clone name for student lsit
+  // Clone name for student list
   copy.querySelector(".studentFirstName", ".studentLastName").textContent = student.firstName + " " + student.middleName + " " + student.lastName;
   // Add student image
   if (student.firstName == "Padma") {
     copy.querySelector(".photo").src = "images/" + student.lastName.toLowerCase() + "_" + "padme" + ".png";
   } else if (student.lastName == "Patil") {
     copy.querySelector(".photo").src = "images/" + student.lastName.toLowerCase() + "_" + student.firstName.toLowerCase() + ".png";
+  } else if (student.firstName == "Leanne") {
+    copy.querySelector(".photo").alt = "";
   } else if (student.lastName == "Finch-fletchley") {
     copy.querySelector(".photo").src = "images/" + "fletchley" + "_" + student.firstName.substring(0, 1).toLowerCase() + ".png";
   } else {
     copy.querySelector(".photo").src = "images/" + student.lastName.toLowerCase() + "_" + student.firstName[0].substring(0, 1).toLowerCase() + ".png";
   }
+
   // Add gender
   copy.querySelector(".gender").textContent = `Gender: ${student.gender}`;
 
@@ -296,6 +302,8 @@ function showStudents(student) {
       modal.querySelector(".photo").src = "images/" + student.lastName.toLowerCase() + "_" + "padme" + ".png";
     } else if (student.lastName == "Patil") {
       modal.querySelector(".photo").src = "images/" + student.lastName.toLowerCase() + "_" + student.firstName.toLowerCase() + ".png";
+    } else if (student.firstName == "Leanne") {
+      modal.querySelector(".photo").alt = "";
     } else if (student.lastName == "Finch-fletchley") {
       modal.querySelector(".photo").src = "images/" + "fletchley" + "_" + student.firstName.substring(0, 1).toLowerCase() + ".png";
     } else {
@@ -303,7 +311,8 @@ function showStudents(student) {
     }
 
     // add house crest
-    modal.querySelector(".crest").src = `house-crests/${student.house.toLowerCase()}.png`;
+    modal.querySelector(".crest").src = "house-crests/" + student.house.toLowerCase() + ".png";
+    ".png";
 
     const modalOpen = document.querySelector(".modal-background");
     modalOpen.classList.remove("hide");
@@ -331,20 +340,20 @@ function maxTwo(student) {
     console.log("more than 2 selected")
     document.querySelector("#onlytwoprefects").classList.add("show");
     console.log(prefects)
-    document.querySelector("#onlytwoprefects .student1").textContent = `${prefects[0].fullName}, the ${prefects[0].gender}`;
-    document.querySelector("#onlytwoprefects .student2").textContent = `${prefects[1].fullName}, the ${prefects[1].gender}`;
+    document.querySelector("#onlytwoprefects .student1").textContent = `${prefects[0].firstName} ${prefects[0].lastName}, the ${prefects[0].gender}`;
+    document.querySelector("#onlytwoprefects .student2").textContent = `${prefects[1].firstName} ${prefects[1].lastName}, the ${prefects[1].gender}`;
     document.querySelector("#onlytwoprefects [data-action=remove1]").addEventListener("click", function () {
       console.log(prefects[0])
       prefects[0].prefect = false;
       student.prefect = true;
-      fetchList(student)
+      fetchList(studentArr)
       document.querySelector("#onlytwoprefects").classList.remove("show")
     })
     document.querySelector("#onlytwoprefects [data-action=remove2]").addEventListener("click", function () {
       console.log(prefects[1])
       prefects[1].prefect = false;
       student.prefect = true;
-      fetchList(student)
+      fetchList(studentArr)
       document.querySelector("#onlytwoprefects").classList.remove("show")
     })
   }
@@ -363,16 +372,15 @@ function differentType(student) {
     if (prefects.some(checkGender) == false) {
       student.prefect = true;
     } else {
-      console.log("student gender IS there");
       document.querySelector("#onlyonegender").classList.add("show")
-      document.querySelector("#onlyonegender .student1").textContent = `${prefects[0].student.firstName}, the ${prefects[0].student.gender}`;
+      document.querySelector("#onlyonegender .student1").textContent = `${prefects[0].firstName} ${prefects[0].lastName}, the ${prefects[0].student.gender}`;
       document.querySelector("#onlyonegender [data-action=remove1]").addEventListener("click", function () {
         console.log(prefects[0])
 
         prefects[0].prefect = false
         student.prefect = true;
 
-        fetchList(student);
+        fetchList(studentArr);
         document.querySelector("#onlyonegender").classList.remove("show")
       })
 
@@ -380,7 +388,7 @@ function differentType(student) {
         document.querySelector("#onlyonegender").classList.remove("show")
       })
 
-      fetchList(student);
+      fetchList(studentArr);
     }
 
     prefects = studentArr.filter(students => students.prefect == true);
