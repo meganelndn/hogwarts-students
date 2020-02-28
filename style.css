@@ -31,6 +31,13 @@
     }
 }
 
+@media all and (max-width: 650px) {
+    #students {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}
+
 body {
     margin: 0;
     background-color: var(--primary-color);
@@ -193,11 +200,9 @@ article {
     justify-content: left;
 }
 
-.gender {
-    text-align: left;
-}
-
-.prefect {
+.gender,
+.prefect,
+.expelled {
     text-align: left;
 }
 
@@ -216,9 +221,6 @@ select#theme {
     font-family: var(--secondary-color);
     padding: 30px;
 }
-
-/*--------------------------------SEARCH OPTION----------------------------*/
-/* #search-icon {} */
 
 /*--------------------------------PREFECT STAR-----------------------------*/
 

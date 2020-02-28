@@ -1,12 +1,12 @@
 "use strict";
 window.addEventListener("DOMContentLoaded", init);
 
-/*------------------------------STUDENT ARRAY----------------------------*/
+/*---------------------------------ARRAYS--------------------------------*/
 let studentArr = [];
 let currentStudents = [];
 let prefects = [];
-//let expelledStudents = [];
-//let bloodStatus = [];
+let expelledStudents = [];
+let bloodStatus = [];
 
 /*-----------------------------FULLNAME OBJECT---------------------------*/
 let nameArr = {};
@@ -32,13 +32,18 @@ function init() {
     document.querySelector("body").setAttribute("data-house", this.value);
     console.log("data-house", this.house)
   });
+
   // event-listener for filtering
   document.querySelectorAll(".filter").forEach(button => {
     button.addEventListener("click", setFilter);
   });
+
+  document.querySelector("[data-filter=expelled]").addEventListener("click", filterExpelled);
+  document.querySelector("[data-filter=not-expelled]").addEventListener("click", filterNonExpelled);
+
   // event-listener for sorting
-  document.querySelector("[data-sort='firstname']").addEventListener("click", sortFirstName);
-  document.querySelector("[data-sort='lastname']").addEventListener("click", sortLastName);
+  document.querySelector("[data-sort=firstname]").addEventListener("click", sortFirstName);
+  document.querySelector("[data-sort=lastname]").addEventListener("click", sortLastName);
 
   fetchJson();
 }
@@ -55,10 +60,28 @@ function sendFiltered(filter) {
   const filterStudents = studentArr.filter(filterFunction);
 
   function filterFunction(newStudent) {
-    //console.log(newStudent)
     return filter === newStudent.house;
   }
   return filterStudents;
+}
+
+
+function filterExpelled() {
+  const onlyExpelled = studentArr.filter(isExpelled);
+  fetchList(onlyExpelled);
+
+  function isExpelled(student) {
+    return student.expelled;
+  }
+}
+
+function filterNonExpelled() {
+  const notExpelled = studentArr.filter(isNotExpelled)
+  fetchList(notExpelled);
+
+  function isNotExpelled(student) {
+    return student.expelled == false;
+  }
 }
 
 /*------------------------------------SORT-------------------------------*/
@@ -235,24 +258,6 @@ function fetchList(student) {
 /*-------------------DISPLAY NEW STUDENTLIST------------------*/
 function showStudents(student) {
 
-  /* document.querySelector("#search").addEventListener("keyup", function (search) {
-    console.log("key up");
-
-    const searchValue = search.target.value.toLowerCase();
-    const students = document.querySelector("#student");
-
-    Array.from(students).forEach(student => {
-      const name = student.querySelector(".studentFirstName").textContent;
-      student.className = "student";
-
-      if (name.toLowerCase().includes(searchValue)) {
-        student.classList.add("student");
-      } else {
-        student.classList.add("hide");
-      }
-    })
-  }) */
-
   // Clone HTML template
   const template = document.querySelector("#template").content;
   const copy = template.cloneNode(true);
@@ -264,14 +269,20 @@ function showStudents(student) {
   } else {
     copy.querySelector("[data-field=star]").textContent = "☆";
   }
-  // Event listener to click on star
+  // Set a student as prefect
   copy.querySelector("[data-field=star]").addEventListener("click", function () {
     maxTwo(student);
     differentType(student);
   })
 
-  // Clone name for student list
+  // Expel a student
+  copy.querySelector(".expelBtn").addEventListener("click", function () {
+    expelStudent(student);
+  })
+
+  // Clone NAME
   copy.querySelector(".studentFirstName", ".studentLastName").textContent = student.firstName + " " + student.middleName + " " + student.lastName;
+
   // Add student image
   if (student.firstName == "Padma") {
     copy.querySelector(".photo").src = "images/" + student.lastName.toLowerCase() + "_" + "padme" + ".png";
@@ -293,18 +304,21 @@ function showStudents(student) {
 
     // TODO: add blood status
 
-    // TODO: add if prefect and/or expelled
+    // add prefect status in modal 
     modal.querySelector(".prefect").textContent = "Prefect: " + student.prefect;
+
+    // TODO: add if expelled or not
+    modal.querySelector(".expelled").textContent = "Expelled: " + student.expelled;
 
     // add student image 
     if (student.firstName == "Padma") {
-      modal.querySelector(".photo").src = "images/" + student.lastName.toLowerCase() + "_" + "padme" + ".png";
+      modal.querySelector(".modal-photo").src = "images/" + student.lastName.toLowerCase() + "_" + "padme" + ".png";
     } else if (student.lastName == "Patil") {
-      modal.querySelector(".photo").src = "images/" + student.lastName.toLowerCase() + "_" + student.firstName.toLowerCase() + ".png";
+      modal.querySelector(".modal-photo").src = "images/" + student.lastName.toLowerCase() + "_" + student.firstName.toLowerCase() + ".png";
     } else if (student.firstName == "Leanne") {
-      modal.querySelector(".photo").alt = "";
+      modal.querySelector(".modal-photo").alt = "";
     } else if (student.lastName == "Finch-fletchley") {
-      modal.querySelector(".photo").src = "images/" + "fletchley" + "_" + student.firstName.substring(0, 1).toLowerCase() + ".png";
+      modal.querySelector(".modal-photo").src = "images/" + "fletchley" + "_" + student.firstName.substring(0, 1).toLowerCase() + ".png";
     } else {
       modal.querySelector(".modal-photo").src = "images/" + student.lastName.toLowerCase() + "_" + student.firstName[0].substring(0, 1).toLowerCase() + ".png";
     }
@@ -400,4 +414,19 @@ function differentType(student) {
   }
 
   showStudents(student);
+}
+
+/*---------------------------------EXPEL A STUDENT-------------------------------*/
+function expelStudent(student) {
+  student.expelled = true;
+  student.prefect = false;
+
+  currentStudents = studentArr.filter(student => student.expelled === false);
+
+  expelledStudents.push(student);
+
+  fetchList(currentStudents);
+
+  console.log(currentStudents)
+  console.log(expelledStudents)
 }
