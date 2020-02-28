@@ -256,7 +256,6 @@ article {
 }
 
 .dialog .closebutton {
-    -moz-appearance: none;
     appearance: none;
     position: absolute;
     top: 4vw;

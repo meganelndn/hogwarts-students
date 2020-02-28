@@ -295,7 +295,8 @@ function showStudents(student) {
 
     // TODO: add blood status
 
-    // TODO: add if prefect, expelled, or member of inquisitorial squad
+    // TODO: add if prefect and/or expelled
+    modal.querySelector(".prefect").textContent = "Prefect: " + student.prefect;
 
     // add student image 
     if (student.firstName == "Padma") {
@@ -331,13 +332,17 @@ function showStudents(student) {
   closeModal();
 }
 
+function closeModal() {
+  const modalClose = document.querySelector(".modal-background");
+  modalClose.addEventListener("click", () => {
+    modalClose.classList.add("hide");
+  });
+}
+
 /*---------------------------------PREFECTS SELECTION-------------------------------*/
 function maxTwo(student) {
 
-  //WINNER LENTGH SELECTION
-  console.log(prefects.length)
   if (prefects.length > 1) {
-    console.log("more than 2 selected")
     document.querySelector("#onlytwoprefects").classList.add("show");
     console.log(prefects)
     document.querySelector("#onlytwoprefects .student1").textContent = `${prefects[0].firstName} ${prefects[0].lastName}, the ${prefects[0].gender}`;
@@ -356,13 +361,17 @@ function maxTwo(student) {
       fetchList(studentArr)
       document.querySelector("#onlytwoprefects").classList.remove("show")
     })
+
+    document.querySelector("#onlytwoprefects .closebutton").addEventListener("click", function () {
+      document.querySelector("#onlytwoprefects").classList.remove("show")
+    })
   }
 
+  //showStudents(student);
 }
 
 function differentType(student) {
 
-  //WINNER TYPE SELECTION
   if (student.prefect) {
     student.prefect = false;
   } else {
@@ -377,7 +386,7 @@ function differentType(student) {
       document.querySelector("#onlyonegender [data-action=remove1]").addEventListener("click", function () {
         console.log(prefects[0])
 
-        prefects[0].prefect = false
+        prefects[0].prefect = false;
         student.prefect = true;
 
         fetchList(studentArr);
@@ -395,11 +404,4 @@ function differentType(student) {
   }
 
   showStudents(student);
-}
-
-function closeModal() {
-  const modalClose = document.querySelector(".modal-background");
-  modalClose.addEventListener("click", () => {
-    modalClose.classList.add("hide");
-  });
 }
