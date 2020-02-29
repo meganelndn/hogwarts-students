@@ -182,8 +182,6 @@ function separateData(student) {
 
   // full name
   let fullName = student.fullname;
-
-  // split full name into parts
   nameArr = fullName.split(" ");
 
   nameArr.forEach(generalCleanUp);
@@ -204,6 +202,14 @@ function separateData(student) {
 
   if (newStudent.lastName == "Leanne") {
     newStudent.lastName = "";
+  } else if (newStudent.lastName.includes("-")) {
+    let firstLastName = newStudent.lastName.substring(0, newStudent.lastName.indexOf("-"));
+    let secondLastName = newStudent.lastName.substring(newStudent.lastName.indexOf("-") + 1);
+    let firstCharacterSecondLastName = secondLastName.substring(0, 1);
+    firstCharacterSecondLastName = firstCharacterSecondLastName.toUpperCase();
+    secondLastName = firstCharacterSecondLastName + newStudent.lastName.substring(newStudent.lastName.indexOf("-") + 2);
+
+    newStudent.lastName = firstLastName + "-" + secondLastName;
   }
 
   // gender
@@ -290,8 +296,8 @@ function showStudents(student) {
     copy.querySelector(".photo").src = "images/" + student.lastName.toLowerCase() + "_" + student.firstName.toLowerCase() + ".png";
   } else if (student.firstName == "Leanne") {
     copy.querySelector(".photo").alt = "";
-  } else if (student.lastName == "Finch-fletchley") {
-    copy.querySelector(".photo").src = "images/" + "fletchley" + "_" + student.firstName.substring(0, 1).toLowerCase() + ".png";
+  } else if (student.lastName == "Finch-Fletchley") {
+    copy.querySelector(".photo").src = "images/" + "Fletchley" + "_" + student.firstName.substring(0, 1).toLowerCase() + ".png";
   } else {
     copy.querySelector(".photo").src = "images/" + student.lastName.toLowerCase() + "_" + student.firstName[0].substring(0, 1).toLowerCase() + ".png";
   }
@@ -317,8 +323,8 @@ function showStudents(student) {
       modal.querySelector(".modal-photo").src = "images/" + student.lastName.toLowerCase() + "_" + student.firstName.toLowerCase() + ".png";
     } else if (student.firstName == "Leanne") {
       modal.querySelector(".modal-photo").alt = "";
-    } else if (student.lastName == "Finch-fletchley") {
-      modal.querySelector(".modal-photo").src = "images/" + "fletchley" + "_" + student.firstName.substring(0, 1).toLowerCase() + ".png";
+    } else if (student.lastName == "Finch-Fletchley") {
+      modal.querySelector(".modal-photo").src = "images/" + "Fletchley" + "_" + student.firstName.substring(0, 1).toLowerCase() + ".png";
     } else {
       modal.querySelector(".modal-photo").src = "images/" + student.lastName.toLowerCase() + "_" + student.firstName[0].substring(0, 1).toLowerCase() + ".png";
     }
