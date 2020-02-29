@@ -268,15 +268,15 @@ function showStudents(student) {
   const template = document.querySelector("#template").content;
   const copy = template.cloneNode(true);
 
-  // Prefect selection: show star "⭐" or "☆"
-  copy.querySelector("[data-field=star").dataset.star = student.prefect;
+  // Prefect selection: show selected/non-selected btn
+  copy.querySelector("[data-field=prefect").dataset.prefect = student.prefect;
   if (student.prefect === true) {
-    copy.querySelector("[data-field=star]").textContent = "⭐";
+    copy.querySelector("[data-field=prefect]").textContent = "Prefect ⭐";
   } else {
-    copy.querySelector("[data-field=star]").textContent = "☆";
+    copy.querySelector("[data-field=prefect]").textContent = "Set prefect ☆";
   }
   // Set a student as prefect
-  copy.querySelector("[data-field=star]").addEventListener("click", function () {
+  copy.querySelector("[data-field=prefect]").addEventListener("click", function () {
     maxTwo(student);
     differentType(student);
   })
