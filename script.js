@@ -333,7 +333,7 @@ function showStudents(student) {
     } else if (student.firstName == "Leanne") {
       modal.querySelector(".modal-photo").alt = "";
     } else if (student.lastName == "Finch-Fletchley") {
-      modal.querySelector(".modal-photo").src = "images/" + "Fletchley" + "_" + student.firstName.substring(0, 1).toLowerCase() + ".png";
+      modal.querySelector(".modal-photo").src = "images/" + "fletchley" + "_" + student.firstName.substring(0, 1).toLowerCase() + ".png";
     } else {
       modal.querySelector(".modal-photo").src = "images/" + student.lastName.toLowerCase() + "_" + student.firstName[0].substring(0, 1).toLowerCase() + ".png";
     }
