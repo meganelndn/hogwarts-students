@@ -218,6 +218,16 @@ function separateData(student) {
   // house
   newStudent.house = (student.house.substring(0, 1)).toUpperCase() + (student.house.substring(1, )).toLowerCase();
 
+  let firstHouseSpace = newStudent.house.indexOf(" ");
+  let lastHouseSpace = newStudent.house.lastIndexOf(" ");
+
+  newStudent.house = newStudent.house.trim(firstHouseSpace);
+  newStudent.house = newStudent.house.trim(lastHouseSpace);
+
+  newStudent.house = (newStudent.house.substring(0, 1)).toUpperCase() + (newStudent.house.substring(1, )).toLowerCase();
+
+
+  // push new data into student array
   studentArr.push(newStudent);
   console.log(studentArr)
 
@@ -398,7 +408,7 @@ function differentType(student) {
       student.prefect = true;
     } else {
       document.querySelector("#onlyonegender").classList.add("show")
-      document.querySelector("#onlyonegender .student1").textContent = `${prefects[0].firstName} ${prefects[0].lastName}, the ${prefects[0].student.gender}`;
+      document.querySelector("#onlyonegender .student1").textContent = `${prefects[0].firstName} ${prefects[0].lastName}, the ${prefects[0].gender}`;
       document.querySelector("#onlyonegender [data-action=remove1]").addEventListener("click", function () {
         console.log(prefects[0])
 
@@ -435,4 +445,8 @@ function expelStudent(student) {
 
   console.log(currentStudents)
   console.log(expelledStudents)
+}
+
+function hackTheSystem() {
+
 }
