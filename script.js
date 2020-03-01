@@ -273,7 +273,6 @@ function fetchList(student) {
 
 /*-------------------DISPLAY NEW STUDENTLIST------------------*/
 function showStudents(student) {
-
   // Clone HTML template
   const template = document.querySelector("#template").content;
   const copy = template.cloneNode(true);
@@ -307,7 +306,7 @@ function showStudents(student) {
   } else if (student.firstName == "Leanne") {
     copy.querySelector(".photo").alt = "";
   } else if (student.lastName == "Finch-Fletchley") {
-    copy.querySelector(".photo").src = "images/" + "Fletchley" + "_" + student.firstName.substring(0, 1).toLowerCase() + ".png";
+    copy.querySelector(".photo").src = "images/" + "fletchley" + "_" + student.firstName.substring(0, 1).toLowerCase() + ".png";
   } else {
     copy.querySelector(".photo").src = "images/" + student.lastName.toLowerCase() + "_" + student.firstName[0].substring(0, 1).toLowerCase() + ".png";
   }
@@ -445,8 +444,4 @@ function expelStudent(student) {
 
   console.log(currentStudents)
   console.log(expelledStudents)
-}
-
-function hackTheSystem() {
-
 }
