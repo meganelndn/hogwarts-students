@@ -182,8 +182,6 @@ function separateData(student) {
 
   // full name
   let fullName = student.fullname;
-
-  // split full name into parts
   nameArr = fullName.split(" ");
 
   nameArr.forEach(generalCleanUp);
@@ -204,6 +202,14 @@ function separateData(student) {
 
   if (newStudent.lastName == "Leanne") {
     newStudent.lastName = "";
+  } else if (newStudent.lastName.includes("-")) {
+    let firstLastName = newStudent.lastName.substring(0, newStudent.lastName.indexOf("-"));
+    let secondLastName = newStudent.lastName.substring(newStudent.lastName.indexOf("-") + 1);
+    let firstCharacterSecondLastName = secondLastName.substring(0, 1);
+    firstCharacterSecondLastName = firstCharacterSecondLastName.toUpperCase();
+    secondLastName = firstCharacterSecondLastName + newStudent.lastName.substring(newStudent.lastName.indexOf("-") + 2);
+
+    newStudent.lastName = firstLastName + "-" + secondLastName;
   }
 
   // gender
@@ -212,6 +218,16 @@ function separateData(student) {
   // house
   newStudent.house = (student.house.substring(0, 1)).toUpperCase() + (student.house.substring(1, )).toLowerCase();
 
+  let firstHouseSpace = newStudent.house.indexOf(" ");
+  let lastHouseSpace = newStudent.house.lastIndexOf(" ");
+
+  newStudent.house = newStudent.house.trim(firstHouseSpace);
+  newStudent.house = newStudent.house.trim(lastHouseSpace);
+
+  newStudent.house = (newStudent.house.substring(0, 1)).toUpperCase() + (newStudent.house.substring(1, )).toLowerCase();
+
+
+  // push new data into student array
   studentArr.push(newStudent);
   console.log(studentArr)
 
@@ -262,15 +278,15 @@ function showStudents(student) {
   const template = document.querySelector("#template").content;
   const copy = template.cloneNode(true);
 
-  // Prefect selection: show star "⭐" or "☆"
-  copy.querySelector("[data-field=star").dataset.star = student.prefect;
+  // Prefect selection: show selected/non-selected btn
+  copy.querySelector("[data-field=prefect").dataset.prefect = student.prefect;
   if (student.prefect === true) {
-    copy.querySelector("[data-field=star]").textContent = "⭐";
+    copy.querySelector("[data-field=prefect]").textContent = "Prefect ⭐";
   } else {
-    copy.querySelector("[data-field=star]").textContent = "☆";
+    copy.querySelector("[data-field=prefect]").textContent = "Set prefect ☆";
   }
   // Set a student as prefect
-  copy.querySelector("[data-field=star]").addEventListener("click", function () {
+  copy.querySelector("[data-field=prefect]").addEventListener("click", function () {
     maxTwo(student);
     differentType(student);
   })
@@ -290,8 +306,8 @@ function showStudents(student) {
     copy.querySelector(".photo").src = "images/" + student.lastName.toLowerCase() + "_" + student.firstName.toLowerCase() + ".png";
   } else if (student.firstName == "Leanne") {
     copy.querySelector(".photo").alt = "";
-  } else if (student.lastName == "Finch-fletchley") {
-    copy.querySelector(".photo").src = "images/" + "fletchley" + "_" + student.firstName.substring(0, 1).toLowerCase() + ".png";
+  } else if (student.lastName == "Finch-Fletchley") {
+    copy.querySelector(".photo").src = "images/" + "Fletchley" + "_" + student.firstName.substring(0, 1).toLowerCase() + ".png";
   } else {
     copy.querySelector(".photo").src = "images/" + student.lastName.toLowerCase() + "_" + student.firstName[0].substring(0, 1).toLowerCase() + ".png";
   }
@@ -317,8 +333,8 @@ function showStudents(student) {
       modal.querySelector(".modal-photo").src = "images/" + student.lastName.toLowerCase() + "_" + student.firstName.toLowerCase() + ".png";
     } else if (student.firstName == "Leanne") {
       modal.querySelector(".modal-photo").alt = "";
-    } else if (student.lastName == "Finch-fletchley") {
-      modal.querySelector(".modal-photo").src = "images/" + "fletchley" + "_" + student.firstName.substring(0, 1).toLowerCase() + ".png";
+    } else if (student.lastName == "Finch-Fletchley") {
+      modal.querySelector(".modal-photo").src = "images/" + "Fletchley" + "_" + student.firstName.substring(0, 1).toLowerCase() + ".png";
     } else {
       modal.querySelector(".modal-photo").src = "images/" + student.lastName.toLowerCase() + "_" + student.firstName[0].substring(0, 1).toLowerCase() + ".png";
     }
@@ -392,7 +408,7 @@ function differentType(student) {
       student.prefect = true;
     } else {
       document.querySelector("#onlyonegender").classList.add("show")
-      document.querySelector("#onlyonegender .student1").textContent = `${prefects[0].firstName} ${prefects[0].lastName}, the ${prefects[0].student.gender}`;
+      document.querySelector("#onlyonegender .student1").textContent = `${prefects[0].firstName} ${prefects[0].lastName}, the ${prefects[0].gender}`;
       document.querySelector("#onlyonegender [data-action=remove1]").addEventListener("click", function () {
         console.log(prefects[0])
 
@@ -429,4 +445,8 @@ function expelStudent(student) {
 
   console.log(currentStudents)
   console.log(expelledStudents)
+}
+
+function hackTheSystem() {
+
 }

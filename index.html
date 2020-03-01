@@ -12,7 +12,7 @@
 <body data-house="">
 
     <h1>Hacked Hogwarts 1991</h1>
-    <img src="house-crests/hogwarts.png" alt="hogwartCrest" class="hogwarts">
+    <img src="house-crests/pngbarn.png" alt="hogwartCrest" class="hogwarts">
     <h2>Scroll down for some magic</h2>
 
     <!-----------------------------------THEME CHANGER----------------------------------->
@@ -52,26 +52,19 @@
     <template id="template" class="current-students">
         <article>
             <div id="student">
-                <div data-field="star">⭐</div>
+                <!-- <div data-field="star">⭐</div> -->
                 <h2 class="studentFirstName"></h2>
                 <h2 class="studentLastName"></h2>
                 <img class="photo" alt="studentImg">
                 <p class="gender"></p>
                 <button class="modalBtn">Details</button>
+                <button class="prefectBtn" data-field="prefect">Set prefect</button>
                 <button class="expelBtn">Expel</button>
             </div>
         </article>
     </template>
 
     <section id="students"></section>
-
-    <!-- <div class="prefect-modal">
-        <article class="prefect-modal-content">
-            <p class="prefect-message"></p>
-            <button class="student_1"></button>
-            <button class="student_2"></button>
-        </article>
-    </div> -->
 
     <!-----------------------------------------MODAL------------------------------------------>
     <div class="modal-background hide">
